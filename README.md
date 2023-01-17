@@ -8,6 +8,7 @@ This browser based web application to ...
 List team members and/or short bio's here... 
 * Hi my name is Ali. I'm excited about this project because it's my first time making website that has a useful purpose and because it's my first time making it with a team.
 * Hi, my name is Quincy. I'm excited about this project because I have personally been very frustrated with transit during extreme weather, so this project hits close to home for me.
+* Hi there! My name is Victor and I am nervous as heck when it comes to people looking at any of my code.
 	
 ## 3. Technologies and Resources Used
 List technologies (with version numbers), API's, icons, fonts, images, media or data sources, and other resources that were used.

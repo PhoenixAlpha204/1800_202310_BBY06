@@ -17,33 +17,36 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <!-- Other libraries go here -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Link to styles of your own ------------------>
     <!-- <link rel="stylesheet" href="./styles/style.css"> -->
 
 </head>
-<body>
-  <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-info">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Current Weather</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Neighbourhoods</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Transit Status</a>
-          </li>
-        </ul>
+<body class="bg-light">
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="images/shawn-dearn-sgY1DaqB8AU-unsplash.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="700" height="500">
       </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Don't get caught off guard by weather.</h1>
+        <p class="lead">Avoid sudden hazards on your commute easily with our live map, no matter how you're getting around.
+          Help your community by telling us about issues as they happen, with a submission process that takes seconds to fill out.
+          Get started now!
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2">Create an Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar justify-content-evenly bg-info fixed-bottom">
+    <div class="container py-3">
+      <i class="material-icons">map</i>
+      <i class="material-icons">directions_bus</i>
+      <i class="material-icons">cloud</i>
+      <i class="material-icons">account_circle</i>
     </div>
   </nav>
 

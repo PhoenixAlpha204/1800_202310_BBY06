@@ -22,8 +22,14 @@
 
   <!-- Link to styles of your own ------------------>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-  integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-  crossorigin=""/>
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 </head>
 <body class="bg-light">
@@ -44,24 +50,56 @@
   <!---------------------------------------------->
 
   <!-- Link to scripts of your own -->
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-  crossorigin=""></script>
   <script>
     var map = L.map('map').setView([49.251, -123], 14);
+
+    var geocoder = L.Control.Geocoder.nominatim();
+    if (typeof URLSearchParams !== 'undefined' && location.search) {
+      // parse /?geocoder=nominatim from URL
+      var params = new URLSearchParams(location.search);
+      var geocoderString = params.get('geocoder');
+      if (geocoderString && L.Control.Geocoder[geocoderString]) {
+        console.log('Using geocoder', geocoderString);
+        geocoder = L.Control.Geocoder[geocoderString]();
+      } else if (geocoderString) {
+        console.warn('Unsupported geocoder', geocoderString);
+      }
+    }
+
+    var control = L.Control.geocoder({
+      query: '',
+      placeholder: 'Search here...',
+      geocoder: geocoder
+    }).addTo(map);
+    var marker;
+
+    setTimeout(function() {
+      control.setQuery('');
+    }, 12000);
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var popup = L.popup();
-    function onMapClick(e) {
-      popup
-        .setLatLng(e.latlng)
-        .setContent(e.latlng.toString())
-        .openOn(map);
-    }
-    map.on('click', onMapClick);
+    map.on('click', function(e) {
+      geocoder.reverse(e.latlng, map.options.crs.scale(18), function(results) {
+        var r = results[0];
+        if (r) {
+          if (marker) {
+            marker
+              .setLatLng(r.center)
+              .setPopupContent(r.html || r.name)
+              .openPopup();
+          } else {
+            marker = L.marker(r.center)
+              .bindPopup(r.name)
+              .addTo(map)
+              .openPopup();
+          }
+        }
+      });
+    });
   </script>
 
 </body>

@@ -1,10 +1,4 @@
-* {
-    padding: 0;
-    margin: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
+#body-colour {
     background-image: linear-gradient(to right, rgb(0, 216, 224) , rgb(0, 224, 93));
 }
 
@@ -15,13 +9,22 @@ body {
     background-image: linear-gradient(to right, rgb(0, 247, 255) , rgb(0, 255, 94));
 }
 
+.btn-circle.btn-xl {
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+    border-radius: 60px;
+    font-size: 15px;
+    text-align: center;
+}
+
 h1 {
     margin-left: 20px;
     margin-right: 20px;
     font-size: 60px;
 }
+
 h3 {
-    margin-left: 20px;
     margin-right: 20px;
     margin-top: 10px;
     font-size: 30px;

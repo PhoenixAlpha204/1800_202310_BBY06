@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>COMP1800 Project</title>
+  <title>COMP1800 Project Profile</title>
   <meta name="comp1800 template" content="My 1800 App">
 
   <!-- Required meta tags -->
@@ -24,7 +24,9 @@
 
 </head>
 <body class="bg-light">
-
+    <a href="map.html">
+      <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
   <div style="margin-bottom: 100px;">
     <div style="text-align: center;">
       <i class="material-icons" style="font-size: min(400pt, 90vw)">account_circle</i>
@@ -32,17 +34,25 @@
     </div>
     <br><br>
     <div class="d-grid gap-2 col-11 mx-auto" style="max-width: 700px;">
-      <button class="btn btn-secondary" type="button">Your Reported Data</button>
-      <button class="btn btn-secondary" type="button">Sign Out</button>
+      <a class="btn btn-secondary" href="#">Your Reported Data</a>
+      <a class="btn btn-secondary" href="index.html">Sign Out</a>
     </div>
   </div>
 
   <nav class="navbar justify-content-evenly bg-info fixed-bottom">
-    <div class="container py-3">
-      <i class="material-icons">map</i>
-      <i class="material-icons">directions_bus</i>
-      <i class="material-icons">cloud</i>
-      <i class="material-icons">account_circle</i>
+    <div class="container py-1">
+      <a class="nav-link" href="map.html">
+        <i class="material-icons">map</i>
+      </a>
+      <a class="nav-link" href="transit.html">
+        <i class="material-icons">directions_bus</i>
+      </a>
+      <a class="nav-link" href="weather.html">
+        <i class="material-icons">cloud</i>
+      </a>
+      <a class="nav-link" href="profile.html">
+        <i class="material-icons">account_circle</i>
+      </a>
     </div>
   </nav>
 

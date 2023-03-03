@@ -29,7 +29,8 @@
     />
 
     <!-- Link to styles of your own ------------------>
-    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <link rel="stylesheet" href="./styles/map.css">
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -53,30 +54,6 @@
   <body class="bg-light">
     <div style="position: relative">
       <div id="map" style="height: 95vh; width: 100vw"></div>
-      <div class="text-end">
-        <a
-          class="btn btn-primary btn-circle btn-xl"
-          style="position: absolute; bottom: 3%; right: 10.5%; z-index: 500"
-          href="filter.html"
-          role="button"
-          ><i class="material-icons">filter_list</i>
-        </a>
-        <a
-          class="btn btn-primary btn-circle btn-xl"
-          style="position: absolute; bottom: 3%; right: 5.5%; z-index: 500"
-          href="search.html"
-          role="button"
-        >
-          <i class="material-icons">search</i>
-        </a>
-        <a
-          class="btn btn-primary btn-circle btn-xl"
-          style="position: absolute; bottom: 3%; right: 0.5%; z-index: 500"
-          href="addreport.html"
-          role="button"
-          ><i class="material-icons">add</i></a
-        >
-      </div>
     </div>
 
     <nav class="navbar justify-content-evenly bg-info fixed-bottom">
@@ -95,6 +72,48 @@
         </a>
       </div>
     </nav>
+
+
+    <!-- ali -------------------------------------------->
+
+    <!-- THREE BUTTONS -->
+    <div id="quickAccessBar">
+      <button id="filterBtn" onclick="window.location.href = '/filter.html'"> <img src="/images/filter.png"></button>
+      <button id="searchBtn" onclick="window.location.href = '/search.html'"> <img src="/images/search.png"></button>
+      <button id="reportBtn"> <img src="/images/plus.png"> </button>
+    </div>
+
+    <!-- REPORT MENU (plus button) -->
+    <div id="reportMenu" hidden>
+      <p class="title">Report Disruption</p>
+      <div id="reportMenuType">
+        <p class="subtitle">Type</p>
+        <div class="options">
+          <button id="drivingBtn">Driving</button><br>
+          <button id="transitBtn">Transit</button><br>
+          <button id="cyclingBtn">Cycling</button><br>
+          <button id="walkingBtn">Walking</button><br>
+        </div>
+      </div>
+      <div id="reportMenuLocation" hidden>
+        <p class="subtitle">Select Location</p>
+        <img id="reportMap" src="/images/reportMap.png" alt="">
+        <button class="nextBtn">Next</button>
+      </div>
+      <div id="reportMenuDescription" hidden>
+        <p class="subtitle">Description</p>
+        <textarea id="reportTextarea"></textarea>
+        <button class="uploadImagesBtn">Upload Images</button>
+        <button class="submitBtn">Submit</button>
+      </div>
+      <div id="reportMenuThankYou" hidden>
+        <p class="subtitle">Thank you. Your map has been updated.</p>
+        <button class="backToMapBtn">Back to Map</button>
+      </div>
+      <button id="reportMenuBackBtn"><img src="/images/leftArrow.png" alt=""></button>
+    </div>
+
+    <!-- ali -------------------------------------------->
 
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
@@ -157,5 +176,71 @@
         );
       });
     </script>
+
+
+    <!-- ali -------------------------------------------->
+    <script>
+      let reportMenu = document.getElementById("reportMenu");
+      let reportMenuType = document.getElementById("reportMenuType");
+      let reportMenuLocation = document.getElementById("reportMenuLocation");
+      let reportMenuDescription = document.getElementById("reportMenuDescription");
+      let reportMenuThankYou = document.getElementById("reportMenuThankYou");
+
+      let reportMenuBackBtn = document.getElementById("reportMenuBackBtn")
+
+      document.getElementById("reportBtn").addEventListener("click", function() {
+        reportMenu.hidden = !reportMenu.hidden;
+      })
+
+      reportMenuType.querySelector(".options").childNodes.forEach(function(optionBtn) {
+        optionBtn.addEventListener("click", function() {
+          reportMenuLocation.hidden = false;
+          reportMenuType.hidden = true;
+        })
+      })
+
+      reportMenuLocation.querySelector(".nextBtn").addEventListener("click", function() {
+        reportMenuDescription.hidden = false;
+        reportMenuLocation.hidden = true;
+      })
+
+      reportMenuDescription.querySelector(".uploadImagesBtn").addEventListener("click", function() {
+        // upload images
+      })
+
+      reportMenuDescription.querySelector(".submitBtn").addEventListener("click", function() {
+        // send everything
+        
+        reportMenuThankYou.hidden = false;
+        reportMenuDescription.hidden = true;
+        reportMenuBackBtn.hidden = true;
+      })
+
+      reportMenuThankYou.querySelector(".backToMapBtn").addEventListener("click", function() {
+        reportMenuType.hidden = false;
+        reportMenuBackBtn.hidden = false;
+        reportMenuThankYou.hidden = true;
+        reportMenu.hidden = true;
+      })
+
+      reportMenuBackBtn.addEventListener("click", function() {
+        if (!reportMenuType.hidden) {
+            reportMenu.hidden = true;
+        } else if (!reportMenuLocation.hidden) {
+          reportMenuType.hidden = false;
+          reportMenuLocation.hidden = true;
+        } else if (!reportMenuDescription.hidden) {
+          reportMenuLocation.hidden = false;
+          reportMenuDescription.hidden = true;
+        }
+      })
+    </script>
+    <!-- ali -------------------------------------------->
+
+
+
+
+
+
   </body>
 </html>

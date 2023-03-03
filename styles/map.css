@@ -1,0 +1,145 @@
+* {
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    object-fit: contain;
+}
+
+#quickAccessBar > button {
+    position: absolute;
+    bottom: 80px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    z-index: 1001;
+    border-width: 0;
+    background-color: white;
+    box-shadow:0 0 15px 15px rgba(0,0,0,0.06)
+}
+#quickAccessBar img {
+    width: 60%;
+    height: 60%;
+}
+#filterBtn {right: 170px;}
+#searchBtn {right: 90px;}
+#reportBtn {right: 10px;}
+
+#reportMenu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    z-index: 1002;
+    background-color: rgb(39, 39, 39);
+}
+#reportMenu * {
+    position: absolute;
+    z-index: 1003;
+    text-align: center;
+    color: white;
+}
+#reportMenu .title {
+    left: 50vw;
+    top: 5vh;
+    transform: translate(-50%, 0);
+    width: 100vw;
+    font-size: 5vh;
+}
+#reportMenuType, #reportMenuLocation, #reportMenuDescription, #reportMenuThankYou {
+    width: 100%;
+    height: 100%;
+}
+#reportMenuType .subtitle, #reportMenuLocation .subtitle, #reportMenuDescription .subtitle, #reportMenuThankYou .subtitle {
+    left: 50vw;
+    top: 30vh;
+    transform: translate(-50%, 0);
+    width: 100vw;
+    font-size: 4vh;
+}
+#reportMenuType .options {
+    left: 50vw;
+    top: 40vh;
+    transform: translate(-50%, 0);
+    width: 100vw;
+}
+#reportMenuType .options > button {
+    margin: 1vh;
+    position: relative;
+    width: 20vh;
+    height: 10vh;
+    font-size: 4vh;
+    border-radius: 2vh;
+    background-color: rgb(76, 76, 76);
+}
+#reportMenuLocation .nextBtn {
+    right: 8vh;
+    bottom: 4vh;
+    width: 20vh;
+    height: 10vh;
+    font-size: 4vh;
+    border-radius: 2vh;
+    background-color: rgb(76, 76, 76);
+}
+#reportMap {
+    left: 50vw;
+    top: 38vh;
+    transform: translate(-50%, 0);
+    width: 40vh;
+    height: 40vh;
+}
+#reportTextarea {
+    padding: 2vh;
+    left: 50vw;
+    top: 40vh;
+    transform: translate(-50%, 0);
+    width: 50vh;
+    height: 30vh;
+    border-radius: 1.5vh;
+    font-size: 2vh;
+    background-color: rgb(76, 76, 76);
+    resize: none;
+    text-align: left;
+}
+#reportMenuDescription .uploadImagesBtn, #reportMenuDescription .submitBtn {
+    bottom: 4vh;
+    height: 10vh;
+    font-size: 4vh;
+    border-radius: 2vh;
+    background-color: rgb(76, 76, 76);
+}
+#reportMenuDescription .uploadImagesBtn {
+    right: 24vh;
+    width: 30vh;
+}
+#reportMenuDescription .submitBtn {
+    right: 4vh;
+    width: 18vh;
+}
+#reportMenuThankYou .backToMapBtn {
+    left: 50vw;
+    bottom: 4vh;
+    transform: translate(-50%, 0);
+    width: 26vh;
+    height: 10vh;
+    font-size: 4vh;
+    border-radius: 2vh;
+    background-color: rgb(76, 76, 76);
+}
+#reportMenuThankYou .subtitle {
+    width: 30vh;
+}
+#reportMenuBackBtn {
+    left: 2vh;
+    bottom: 4vh;
+    width: 8vh;
+    height: 8vh;
+    background-color: rgba(0, 0, 0, 0);
+}
+#reportMenuBackBtn > img {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}

@@ -1,14 +1,3 @@
-#body-colour {
-    background-image: linear-gradient(to right, rgb(0, 216, 224) , rgb(0, 224, 93));
-}
-
-#topBanner {
-    position: absolute;
-    width: 100%;
-    height: 150px;
-    background-image: linear-gradient(to right, rgb(0, 247, 255) , rgb(0, 255, 94));
-}
-
 .btn-circle.btn-xl {
     width: 80px;
     height: 80px;
@@ -18,43 +7,20 @@
     text-align: center;
 }
 
-h1 {
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 60px;
-}
-
-h3 {
-    margin-right: 20px;
-    margin-top: 10px;
-    font-size: 30px;
+.index_back {
+    background-image: url("../images/snow_scene.jpg");
+    background-size: cover;
 }
 
 #description {
     position: absolute;
-    top: 175px;
+    top: 20%;
+    left: 14%;
 }
 
-@media only screen and (max-width: 750px) {
-    #topBanner {
-        height: 240px;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    #topBanner {
-        height: 220px;
-    }
-
-    h1 {
-        font-size: 50px;
-    }
-    h3 {
-        font-size: 30px;
-    }
-
-    #description {
-        position: absolute;
-        top: 150px;
-    }
+.colouring {
+    display: inline-block;
+    backdrop-filter: brightness(0.55);
+    color: white;
+    padding: 2%
 }

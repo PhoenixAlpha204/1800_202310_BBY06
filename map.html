@@ -31,6 +31,7 @@
     <!-- Link to styles of your own ------------------>
     <link rel="stylesheet" href="./styles/index.css" />
     <link rel="stylesheet" href="./styles/map.css">
+    <!-- leaflet API for map display -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -43,6 +44,7 @@
       crossorigin=""
     ></script>
 
+    <!-- geocoder gets addresses from coordinates -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
@@ -121,8 +123,10 @@
 
     <!-- Link to scripts of your own -->
     <script>
+      // map will be initialized centered on BCIT campus
       var map = L.map("map").setView([49.251, -123], 14);
 
+      // initializes the geocoder
       var geocoder = L.Control.Geocoder.nominatim();
       if (typeof URLSearchParams !== "undefined" && location.search) {
         // parse /?geocoder=nominatim from URL
@@ -136,6 +140,7 @@
         }
       }
 
+      // top right search button
       var control = L.Control.geocoder({
         query: "",
         placeholder: "Search here...",
@@ -147,12 +152,14 @@
         control.setQuery("");
       }, 12000);
 
+      // initializes map
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
 
+      // displays nearest address on map on click
       map.on("click", function (e) {
         geocoder.reverse(
           e.latlng,

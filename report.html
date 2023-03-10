@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>COMP1800 Project Weather</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap Library CSS CDN go here -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Boostrap Library JS CDN  go here -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+    />
+
+    <!-- Other libraries go here -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Link to styles of your own ------------------>
+  </head>
+  <body class="bg-light">
+    <a href="map.html">
+      <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
+
+    <div class="container">
+      <br />
+      <h1>Report Incident</h1>
+      <br />
+      <form>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1"
+            >How severe is the incident?</label
+          >
+          <select class="form-control" id="level">
+            <option>Very severe</option>
+            <option>Moderate</option>
+            <option>Minor</option>
+          </select>
+          <br />
+          <div class="form-group">
+            <label for="exampleFormControlSelect1"
+              >What mode of transport are you using?</label
+            >
+            <select class="form-control" id="method">
+              <option>Driving</option>
+              <option>Transit</option>
+              <option>Cycling</option>
+              <option>Walking</option>
+            </select>
+            <br />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1"
+              >Describe the incident.</label
+            >
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+          <br />
+          <!--Blocked-->
+          <label
+            >Blocked <span style="display: inline-block; width: 26pt"></span
+          ></label>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="blocked"
+              value="Yes"
+            />
+            <label>Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="blocked"
+              value="No"
+            />
+            <label>No</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="blocked"
+              value="unSure"
+              checked=""
+            />
+            <label>Not sure</label>
+          </div>
+          <br />
+          <!--Fixes underway-->
+          <label
+            >Fixes underway
+            <span style="display: inline-block; width: 20pt"></span
+          ></label>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="fixes"
+              value="Yes"
+            />
+            <label>Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="fixes"
+              value="No"
+            />
+            <label>No</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="fixes"
+              value="unSure"
+              checked=""
+            />
+            <label>Not sure</label>
+          </div>
+
+          <br />
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-lg btn-primary pull-right"
+              onclick="writeReport()"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <nav class="navbar justify-content-evenly bg-info fixed-bottom">
+      <div class="container py-1">
+        <a class="nav-link" href="map.html">
+          <i class="material-icons">map</i>
+        </a>
+        <a class="nav-link" href="transit.html">
+          <i class="material-icons">directions_bus</i>
+        </a>
+        <a class="nav-link" href="weather.html">
+          <i class="material-icons">cloud</i>
+        </a>
+        <a class="nav-link" href="profile.html">
+          <i class="material-icons">account_circle</i>
+        </a>
+      </div>
+    </nav>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <!-- Link to scripts of your own -->
+    <script src="/scripts/firebaseAPI_team06.js"></script>
+    <script src="/scripts/report.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+#fileField {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+img {
+    object-fit: cover;
+    width: min(533px, 90vw);
+    height: min(533px, 90vw);
+    border-radius: 50%;
+}

@@ -44,18 +44,44 @@
     />
 
     <!-- Link to styles of your own ------------------>
+    <!-- leaflet API for map display -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+
+    <!-- geocoder gets addresses from coordinates -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
   <body class="bg-light">
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
 
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
       <br />
       <h1>Report Incident</h1>
       <br />
       <form>
         <div class="form-group">
+          <div style="position: relative; width: 50%;">
+            <div
+              id="map"
+              style="height: min(80vw, 700px); width: min(80vw, 700px)"
+            ></div>
+          </div>
+
           <label for="exampleFormControlSelect1"
             >How severe is the incident?</label
           >

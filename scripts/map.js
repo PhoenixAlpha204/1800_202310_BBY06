@@ -53,7 +53,7 @@ map.on("click", function (e) {
 
 // Get the user's current location
 if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+  navigator.geolocation.getCurrentPosition(function (position) {
     // Center the map on the user's location
     map.setView([position.coords.latitude, position.coords.longitude], 15);
   });
@@ -75,16 +75,13 @@ var carIcon = new marker({ iconUrl: "./images/car.png" }),
   transitIcon = new marker({ iconUrl: "./images/transit.png" }),
   walkingIcon = new marker({ iconUrl: "./images/walking.png" });
 
-// initialize dummy markers for demo purposes
-L.marker([49.248594, -123.004452], { icon: carIcon })
-  .addTo(map)
-  .bindPopup("Placeholder.");
-L.marker([49.2499, -122.998001], { icon: bikeIcon })
-  .addTo(map)
-  .bindPopup("Placeholder.");
-L.marker([49.25364, -123.004277], { icon: transitIcon })
-  .addTo(map)
-  .bindPopup("Placeholder.");
-L.marker([49.254645, -123.000533], { icon: walkingIcon })
-  .addTo(map)
-  .bindPopup("Placeholder.");
+// collection of markers for grouping
+var markers = L.markerClusterGroup();
+
+// initialize dummy markers for demo purposes and add to the collection
+markers.addLayer(L.marker([49.248594, -123.004452], { icon: carIcon }).bindPopup("Placeholder."));
+markers.addLayer(L.marker([49.2499, -122.998001], { icon: bikeIcon }).bindPopup("Placeholder."));
+markers.addLayer(L.marker([49.25364, -123.004277], { icon: transitIcon }).bindPopup("Placeholder."));
+markers.addLayer(L.marker([49.254645, -123.000533], { icon: walkingIcon }).bindPopup("Placeholder."));
+
+map.addLayer(markers);

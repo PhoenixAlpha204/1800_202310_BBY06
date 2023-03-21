@@ -30,7 +30,7 @@
 
     <!-- Link to styles of your own ------------------>
     <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="./styles/map.css">
+    <link rel="stylesheet" href="./styles/map.css" />
     <!-- leaflet API for map display -->
     <link
       rel="stylesheet"
@@ -50,6 +50,17 @@
       href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
     />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <!-- marker cluster to group markers -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"
+    />
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
   </head>
 
   <!-- change style so that it is in css, not style here -->
@@ -76,17 +87,22 @@
       </div>
     </nav>
 
-
     <!-- ali -------------------------------------------->
 
     <!-- THREE BUTTONS -->
     <div id="quickAccessBar">
-      <button id="filterBtn" onclick="window.location.href = '/filter.html'"> <img src="/images/filter.png"></button>
-      <button id="searchBtn" onclick="window.location.href = '/search.html'"> <img src="/images/search.png"></button>
-      <button id="reportBtn" onclick="window.location.href = 'report.html'"> <img src="/images/plus.png"> </button>
+      <button id="filterBtn" onclick="window.location.href = '/filter.html'">
+        <img src="/images/filter.png" />
+      </button>
+      <button id="searchBtn" onclick="window.location.href = '/search.html'">
+        <img src="/images/search.png" />
+      </button>
+      <button id="reportBtn" onclick="window.location.href = 'report.html'">
+        <img src="/images/plus.png" />
+      </button>
     </div>
 
-        <!-- REPORT MENU (plus button)
+    <!-- REPORT MENU (plus button)
         <div id="reportMenu" hidden>
           <p class="title">Report Disruption</p>
           <div id="reportMenuType">

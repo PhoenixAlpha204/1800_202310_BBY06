@@ -52,14 +52,14 @@ map.on("click", function (e) {
 });
 
 // Get the user's current location
-if ('geolocation' in navigator) {
+if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(function(position) {
     // Center the map on the user's location
     map.setView([position.coords.latitude, position.coords.longitude], 15);
   });
 } else {
   // Geolocation is not supported
-  alert('Geolocation is not supported by your browser');
+  alert("Geolocation is not supported by your browser");
 }
 
 // four types of incident marker

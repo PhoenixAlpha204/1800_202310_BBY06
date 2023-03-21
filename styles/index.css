@@ -1,26 +1,33 @@
 .btn-circle.btn-xl {
-    width: 80px;
-    height: 80px;
-    padding: 20px;
-    border-radius: 60px;
-    font-size: 15px;
-    text-align: center;
+  width: 80px;
+  height: 80px;
+  padding: 20px;
+  border-radius: 60px;
+  font-size: 15px;
+  text-align: center;
 }
 
 .index_back {
-    background-image: url("../images/snow_scene.jpg");
-    background-size: cover;
+  background-image: url("../images/snow_scene.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #description {
-    position: absolute;
-    top: 20%;
-    left: 14%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
 }
 
 .colouring {
-    display: inline-block;
-    backdrop-filter: brightness(0.55);
-    color: white;
-    padding: 2%
+  display: inline-block;
+  backdrop-filter: brightness(0.55);
+  color: white;
+  padding: 2%;
+}
+
+.logo {
+    max-width: 25%;
+    max-height: 25%;
 }

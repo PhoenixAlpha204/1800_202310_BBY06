@@ -63,7 +63,11 @@ function writeReport() {
     function (results) {
       var r = results[0];
       if (r) {
-        Address = r.name;
+        const regex = /, [A-Za-z]+, Metro Vancouver [\w\d\s,]+/ig;
+        Address = r.name.replaceAll(regex, "");
+        if (Address === "") {
+          Address = "No known address";
+        }
       } else {
         Address = "No known address";
       }

@@ -55,33 +55,48 @@ function writeReport() {
   let Fixes = document.querySelector('input[name="fixes"]:checked').value;
   let Latitude = map.getCenter().lat;
   let Longitude = map.getCenter().lng;
-  console.log(Level, Method, Description, Blocked, Fixes);
+  let Address;
+  //find address with geocoder, wait for result before logging to Firestore
+  geocoder.reverse(
+    map.getCenter(),
+    map.options.crs.scale(18),
+    function (results) {
+      var r = results[0];
+      if (r) {
+        Address = r.name;
+      } else {
+        Address = "No known address";
+      }
+      console.log(Level, Method, Description, Blocked, Fixes, Address);
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      var currentUser = db.collection("users").doc(user.uid);
-      var userID = user.uid;
-      //get the document for current user.
-      currentUser.get().then((userDoc) => {
-        db.collection("report")
-          .add({
-            userID: userID,
-            level: Level,
-            method: Method,
-            description: Description,
-            blocked: Blocked,
-            fixes: Fixes,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            latitude: Latitude,
-            longitude: Longitude
-          })
-          .then(() => {
-            window.location.href = "thanks.html"; //new line added
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          var currentUser = db.collection("users").doc(user.uid);
+          var userID = user.uid;
+          //get the document for current user.
+          currentUser.get().then((userDoc) => {
+            db.collection("report")
+              .add({
+                userID: userID,
+                level: Level,
+                method: Method,
+                description: Description,
+                blocked: Blocked,
+                fixes: Fixes,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                latitude: Latitude,
+                longitude: Longitude,
+                address: Address,
+              })
+              .then(() => {
+                window.location.href = "thanks.html"; //new line added
+              });
           });
+        } else {
+          console.log("No user is signed in");
+          window.location.href = "report.html";
+        }
       });
-    } else {
-      console.log("No user is signed in");
-      window.location.href = "report.html";
     }
-  });
+  );
 }

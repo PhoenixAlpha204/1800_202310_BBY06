@@ -79,34 +79,31 @@ var carIcon = new marker({ iconUrl: "./images/car.png" }),
 var markers = L.markerClusterGroup();
 var markerTemp;
 
-// initialize dummy markers for demo purposes and add to the collection
-markerTemp = L.marker([49.248594, -123.004452], { icon: carIcon }).bindPopup(
-  "Placeholder."
-);
-markers.addLayer(markerTemp);
-markerTemp.on("click", function (e) {
-  window.location.href = "/report_template.html"; // append report ID to this URL later
-});
-markerTemp = L.marker([49.2499, -122.998001], { icon: bikeIcon }).bindPopup(
-  "Placeholder."
-);
-markers.addLayer(markerTemp);
-markerTemp.on("click", function (e) {
-  window.location.href = "/report_template.html"; // append report ID to this URL later
-});
-markerTemp = L.marker([49.25364, -123.004277], { icon: transitIcon }).bindPopup(
-  "Placeholder."
-);
-markers.addLayer(markerTemp);
-markerTemp.on("click", function (e) {
-  window.location.href = "/report_template.html"; // append report ID to this URL later
-});
-markerTemp = L.marker([49.254645, -123.000533], { icon: walkingIcon }).bindPopup(
-  "Placeholder."
-);
-markers.addLayer(markerTemp);
-markerTemp.on("click", function (e) {
-  window.location.href = "/report_template.html"; // append report ID to this URL later
-});
+
+    // fetch reports collection
+    const report = db.collection("report");
+    report.get().then((querySnapshot) => {
+      // for each document in the reports collection
+      querySnapshot.forEach((doc) => {
+        // add a marker on the map with the correct location and icon
+        var markerLat = doc.data().latitude;
+        var markerLng = doc.data().longitude;
+        var iconTemp;
+        if (doc.data().method === "Driving") {
+          iconTemp = carIcon;
+        } else if (doc.data().method === "Cycling") {
+          iconTemp = bikeIcon;
+        } else if (doc.data().method === "Transit") {
+          iconTemp = transitIcon;
+        } else if (doc.data().method === "Walking") {
+          iconTemp = walkingIcon;
+        }
+        markerTemp = L.marker([markerLat, markerLng], { icon: iconTemp });
+        markers.addLayer(markerTemp);
+        markerTemp.on("click", function (e) {
+          window.location.href = "/report_template.html"; // append report ID to this URL later
+        });
+      });
+    });
 
 map.addLayer(markers);

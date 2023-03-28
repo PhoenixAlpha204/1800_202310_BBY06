@@ -89,7 +89,7 @@ var markerTemp;
         var markerLat = doc.data().latitude;
         var markerLng = doc.data().longitude;
         var iconTemp;
-        if (doc.data().method === "Driving") {
+        if (doc.data().method === "Car") {
           iconTemp = carIcon;
         } else if (doc.data().method === "Cycling") {
           iconTemp = bikeIcon;

@@ -5,29 +5,38 @@ firebase.auth().onAuthStateChanged((user) => {
     // the following functions are always called when someone is logged in
     let cardTemplate = document.getElementById("reportCardTemplate");
 
+    // Reads from report collection and creates card in "Your Reported Data"
     db.collection("report")
       .where("userID", "==", user.uid)
       .get()
       .then((allReports) => {
         allReports.forEach((doc) => {
-          //iterate thru each doc
-          var title = doc.data().method; // get value of the "method" key
+          //iterate through each doc
+          var method = doc.data().method; // get value of the "method" key
+          var type = doc.data().type; // get value of the "method" key
           var details = doc.data().description; // get value of the "description" key
-          //var image = doc.data().code; //get unique image to each report to be used for fetching right image
+          var image = doc.data().image; //get unique image to each report
           var blocked = doc.data().blocked; //gets the blocked field
-          var address = doc.data().address;
+          var address = doc.data().address; // gets address
+          var fixed = doc.data().fixes; // gets fixes field
           let newcard = cardTemplate.content.cloneNode(true);
 
-          newcard.querySelector(".card-title").innerHTML = title;
-          newcard.querySelector(".card-text").innerHTML = details;
-          //newcard.querySelector('.card-image').src = `./images/${image}.jpg`; //Example: NV01.jpg
+          newcard.querySelector('.card-image').src = image;
+          newcard.querySelector(".card-title").innerHTML = type;
+          newcard.querySelector(".card-text").innerHTML = "Description: " + details;
 
           newcard.querySelector(".card-length").innerText =
-            "Address: " +
-            doc.data().address +
+            "Transport method: " +
+            method +
             "\n\n" +
-            "Blocked: " +
-            doc.data().blocked +
+            "Address: " +
+            address +
+            "\n\n" +
+            "Path blocked: " +
+            blocked +
+            "\n" +
+            "Fixes underway: " +
+            fixed +
             "\n" +
             "Last updated: " +
             doc.data().timestamp.toDate().toDateString();

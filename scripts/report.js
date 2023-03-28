@@ -64,6 +64,7 @@ listenFileSelect();
 // Submits information from report page to Firestore collection
 function writeReport() {
   console.log("Inside write report");
+  let Type = document.getElementById("type").value;
   let Level = document.getElementById("level").value;
   let Method = document.getElementById("method").value;
   let Description = document.getElementById("description").value;
@@ -100,6 +101,7 @@ function writeReport() {
             db.collection("report")
               .add({
                 userID: userID,
+                type: Type,
                 level: Level,
                 method: Method,
                 description: Description,
@@ -150,33 +152,11 @@ function uploadPic(postDocID) {
                        // AFTER .update is done
                       .then(function () {
                           console.log('4. Added pic URL to Firestore.');
-                          // One last thing to do:
-                          // save this postID into an array for the OWNER
-                          // so we can show "my posts" in the future
-                          savePostIDforUser(postDocID);
+                          window.location.href = "thanks.html";
                       })
               })
       })
       .catch((error) => {
            console.log("error uploading to cloud storage");
       })
-}
-
-//saves the post ID for the user, in an array
-function savePostIDforUser(postDocID) {
-  firebase.auth().onAuthStateChanged(user => {
-        console.log("user id is: " + user.uid);
-        console.log("postdoc id is: " + postDocID);
-        db.collection("users").doc(user.uid).update({
-              myreports: firebase.firestore.FieldValue.arrayUnion(postDocID)
-        })
-        .then(() =>{
-              console.log("5. Saved to user's document!");
-              alert ("Post is complete!");
-              window.location.href = "thanks.html";
-         })
-         .catch((error) => {
-              console.error("Error writing document: ", error);
-         });
-  })
 }

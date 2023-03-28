@@ -152,6 +152,7 @@ function uploadPic(postDocID) {
                        // AFTER .update is done
                       .then(function () {
                           console.log('4. Added pic URL to Firestore.');
+                          alert ("Submission complete!");
                           window.location.href = "thanks.html";
                       })
               })

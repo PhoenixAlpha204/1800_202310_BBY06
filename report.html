@@ -64,6 +64,7 @@
     />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
+
   <body class="bg-light">
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
@@ -71,123 +72,130 @@
 
     <div class="container" style="margin-bottom: 100px">
       <br />
-      <h1>Report Incident</h1>
+      <h1>Report Obstruction</h1>
       <br />
       <form>
         <div class="form-group">
-          <div style="position: relative; width: 50%;">
+          <label
+            >To select a location, please move the white circle to the location
+            of the obstruction.</label
+          >
+          <div style="position: relative; width: 50%">
             <div
               id="map"
               style="height: min(80vw, 700px); width: min(80vw, 700px)"
             ></div>
           </div>
-
-          <label for="exampleFormControlSelect1"
-            >How severe is the incident?</label
-          >
-          <select class="form-control" id="level">
-            <option>Very severe</option>
-            <option>Moderate</option>
-            <option>Minor</option>
-          </select>
           <br />
+
           <div class="form-group">
-            <label for="exampleFormControlSelect1"
-              >What mode of transport are you using?</label
-            >
+            <!--Mode of transport-->
+            <label>What mode of transport are you using?</label>
             <select class="form-control" id="method">
-              <option>Driving</option>
-              <option>Transit</option>
-              <option>Cycling</option>
               <option>Walking</option>
+              <option>Car</option>
+              <option>Transit</option>
+              <option>Bicycle</option>
             </select>
             <br />
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1"
-              >Describe the incident.</label
-            >
-            <textarea class="form-control" id="description" rows="3"></textarea>
-          </div>
-          <br />
-          <!--Blocked-->
-          <label
-            >Blocked <span style="display: inline-block; width: 26pt"></span
-          ></label>
 
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="blocked"
-              value="Yes"
-            />
-            <label>Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="blocked"
-              value="No"
-            />
-            <label>No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="blocked"
-              value="Unsure"
-              checked=""
-            />
-            <label>Not sure</label>
-          </div>
-          <br />
-          <!--Fixes underway-->
-          <label
-            >Fixes underway
-            <span style="display: inline-block; width: 20pt"></span
-          ></label>
+            <!--Severity of obstruction-->
+            <label>How severe is the obstruction?</label>
+            <select class="form-control" id="level">
+              <option>Minor blockage</option>
+              <option>Moderate blockage</option>
+              <option>Complete blockage</option>
+            </select>
+            <br />
 
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="fixes"
-              value="Yes"
-            />
-            <label>Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="fixes"
-              value="No"
-            />
-            <label>No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="fixes"
-              value="unSure"
-              checked=""
-            />
-            <label>Not sure</label>
-          </div>
+            <label>Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="4"
+              placeholder="Details about the exact location of the obstruction, the kind of obstruction, time of discovery, etc."
+            ></textarea>
+            <br />
 
-          <br />
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn btn-lg btn-primary pull-right"
-              onclick="writeReport()"
-            >
-              Submit
-            </button>
+            <!--Blocked-->
+            <label
+              >Blocked? <span style="display: inline-block; width: 26pt"></span
+            ></label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="Yes"
+              />
+              <label>Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="No"
+              />
+              <label>No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="Not sure"
+                checked=""
+              />
+              <label>Not sure</label>
+            </div>
+            <br />
+
+            <!--Fixes underway-->
+            <label
+              >Fixes underway?
+              <span style="display: inline-block; width: 20pt"></span
+            ></label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="Yes"
+              />
+              <label>Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="No"
+              />
+              <label>No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="Not sure"
+                checked=""
+              />
+              <label>Not sure</label>
+            </div>
+            <br />
+
+            <!--Submit button-->
+            <div class="d-flex justify-content-end">
+              <button
+                type="button"
+                class="btn btn-lg btn-primary pull-right"
+                onclick="writeReport()"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </form>

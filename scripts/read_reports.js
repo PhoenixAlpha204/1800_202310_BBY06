@@ -1,7 +1,6 @@
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     console.log(user.uid);
-    var currentUser = db.collection("users").doc(user.uid); //global
 
     // the following functions are always called when someone is logged in
     let cardTemplate = document.getElementById("reportCardTemplate");
@@ -43,3 +42,4 @@ firebase.auth().onAuthStateChanged((user) => {
     window.location.href = "login.html";
   }
 });
+

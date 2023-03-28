@@ -46,8 +46,9 @@ map.on("move", function () {
   //console.log(map.getCenter());
 });
 
+// Submits information from report page to Firestore collection
 function writeReport() {
-  console.log("inside write report");
+  console.log("Inside write report");
   let Level = document.getElementById("level").value;
   let Method = document.getElementById("method").value;
   let Description = document.getElementById("description").value;
@@ -56,6 +57,7 @@ function writeReport() {
   let Latitude = map.getCenter().lat;
   let Longitude = map.getCenter().lng;
   let Address;
+  
   //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(
     map.getCenter(),

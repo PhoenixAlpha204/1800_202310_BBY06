@@ -1,3 +1,5 @@
+const MAX_DESCRIPTION_CHARS = 1000;
+
 // map will be initialized centered on BCIT campus
 var map = L.map("map").setView([49.251, -123], 15);
 
@@ -73,6 +75,8 @@ function writeReport() {
   let Latitude = map.getCenter().lat;
   let Longitude = map.getCenter().lng;
   let Address;
+  
+  if (Description.length > MAX_DESCRIPTION_CHARS) {showError(`Your description cannot be over ${MAX_DESCRIPTION_CHARS} characters long. It is currently ${descriptionChars} characters long.`); return;};
 
   //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(
@@ -98,8 +102,9 @@ function writeReport() {
 
           //get the document for current user.
           currentUser.get().then((userDoc) => {
-            db.collection("report")
+            db.collection("reports")
               .add({
+                id: (Math.floor(Math.random() * Math.pow(10, 8))).toString(),
                 userID: userID,
                 type: Type,
                 level: Level,
@@ -108,9 +113,11 @@ function writeReport() {
                 blocked: Blocked,
                 fixes: Fixes,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                latitude: Latitude,
-                longitude: Longitude,
+                location: [Latitude, Longitude],
                 address: Address,
+                likers: [],
+                dislikers: [],
+                reviews: [],
               })
               .then(doc => {
                 console.log("1. Post document added!");
@@ -146,13 +153,13 @@ function uploadPic(postDocID) {
                   // Now that the image is on Storage, we can go back to the
                   // post document, and update it with an "image" field
                   // that contains the url of where the picture is stored.
-                  db.collection("report").doc(postDocID).update({
+                  db.collection("reports").doc(postDocID).update({
                           "image": url // Save the URL into users collection
                       })
                        // AFTER .update is done
                       .then(function () {
                           console.log('4. Added pic URL to Firestore.');
-                          alert ("Submission complete!");
+                          alert ("Submission !");
                           window.location.href = "thanks.html";
                       })
               })

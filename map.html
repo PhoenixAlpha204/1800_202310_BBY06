@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>COMP1800 Project Map</title>
+    <title>Map</title>
     <meta name="comp1800 template" content="My 1800 App" />
 
     <!-- Required meta tags -->
@@ -45,7 +45,9 @@
 
     <!-- Link to styles of your own ------------------>
     <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="./styles/map.css" />
+    <link rel="stylesheet" href="./styles/map.css">
+    <link rel="stylesheet" href="./styles/shared.css">
+ 
     <!-- leaflet API for map display -->
     <link
       rel="stylesheet"
@@ -106,50 +108,20 @@
 
     <!-- THREE BUTTONS -->
     <div id="quickAccessBar">
-      <button id="filterBtn" onclick="window.location.href = '/filter.html'">
-        <img src="/images/filter.png" />
-      </button>
-      <button id="searchBtn" onclick="window.location.href = '/search.html'">
-        <img src="/images/search.png" />
-      </button>
-      <button id="reportBtn" onclick="window.location.href = 'report.html'">
-        <img src="/images/plus.png" />
-      </button>
+      <button id="filterBtn" onclick="window.location.href = '/filter.html'"> <img src="/images/filter.png"></button>
+      <button id="nearbyBtn" onclick="window.location.href = '/nearby.html'"> <img src="/images/nearby.png"></button>
+      <button id="reportBtn" onclick="window.location.href = '/report.html'"> <img src="/images/plus.png"> </button>
     </div>
 
-    <!-- REPORT MENU (plus button)
-        <div id="reportMenu" hidden>
-          <p class="title">Report Disruption</p>
-          <div id="reportMenuType">
-            <p class="subtitle">Type</p>
-            <div class="options">
-              <button id="drivingBtn">Driving</button><br />
-              <button id="transitBtn">Transit</button><br />
-              <button id="cyclingBtn">Cycling</button><br />
-              <button id="walkingBtn">Walking</button><br />
-            </div>
-          </div>
-          <div id="reportMenuLocation" hidden>
-            <p class="subtitle">Select Location</p>
-            <img id="reportMap" src="/images/reportMap.png" alt="" />
-            <button class="nextBtn">Next</button>
-          </div>
-          <div id="reportMenuDescription" hidden>
-            <p class="subtitle">Description</p>
-            <textarea id="reportTextarea"></textarea>
-            <button class="uploadImagesBtn">Upload Images</button>
-            <button class="submitBtn">Submit</button>
-          </div>
-          <div id="reportMenuThankYou" hidden>
-            <p class="subtitle">Thank you. Your map has been updated.</p>
-            <button class="backToMapBtn">Back to Map</button>
-          </div>
-          <button id="reportMenuBackBtn">
-            <img src="/images/leftArrow.png" alt="" />
-          </button>
-        </div> -->
+    <div id="reviewsMenu" hidden>
+      <textarea id="reviewsTextArea" placeholder="Write your own review"></textarea>
+      <button id="reviewsSubmitBtn">Post</button>
+      <h4>All reviews:</h4>
+      <p id="reviewsContent">Be the first one to review this report!</p>
+      <button id="reviewsCloseBtn">X</button>
+    </div>
 
-    <!-- ali -------------------------------------------->
+    <div id="errorPrompt" hidden></div>
 
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
@@ -158,76 +130,7 @@
     <!-- Link to scripts of your own -->
     <script src="./scripts/firebaseAPI_team06.js"></script>
     <script src="./scripts/map.js"></script>
-    <!-- <script>
-      let reportMenu = document.getElementById("reportMenu");
-      let reportMenuType = document.getElementById("reportMenuType");
-      let reportMenuLocation = document.getElementById("reportMenuLocation");
-      let reportMenuDescription = document.getElementById(
-        "reportMenuDescription"
-      );
-      let reportMenuThankYou = document.getElementById("reportMenuThankYou");
-
-      let reportMenuBackBtn = document.getElementById("reportMenuBackBtn");
-
-      document
-        .getElementById("reportBtn")
-        .addEventListener("click", function () {
-          reportMenu.hidden = !reportMenu.hidden;
-        });
-
-      reportMenuType
-        .querySelector(".options")
-        .childNodes.forEach(function (optionBtn) {
-          optionBtn.addEventListener("click", function () {
-            reportMenuLocation.hidden = false;
-            reportMenuType.hidden = true;
-          });
-        });
-
-      reportMenuLocation
-        .querySelector(".nextBtn")
-        .addEventListener("click", function () {
-          reportMenuDescription.hidden = false;
-          reportMenuLocation.hidden = true;
-        });
-
-      reportMenuDescription
-        .querySelector(".uploadImagesBtn")
-        .addEventListener("click", function () {
-          // upload images
-        });
-
-      reportMenuDescription
-        .querySelector(".submitBtn")
-        .addEventListener("click", function () {
-          // send everything
-
-          reportMenuThankYou.hidden = false;
-          reportMenuDescription.hidden = true;
-          reportMenuBackBtn.hidden = true;
-        });
-
-      reportMenuThankYou
-        .querySelector(".backToMapBtn")
-        .addEventListener("click", function () {
-          reportMenuType.hidden = false;
-          reportMenuBackBtn.hidden = false;
-          reportMenuThankYou.hidden = true;
-          reportMenu.hidden = true;
-        });
-
-      reportMenuBackBtn.addEventListener("click", function () {
-        if (!reportMenuType.hidden) {
-          reportMenu.hidden = true;
-        } else if (!reportMenuLocation.hidden) {
-          reportMenuType.hidden = false;
-          reportMenuLocation.hidden = true;
-        } else if (!reportMenuDescription.hidden) {
-          reportMenuLocation.hidden = false;
-          reportMenuDescription.hidden = true;
-        }
-      });
-    </script> -->
     <script src="/scripts/script.js"></script>
+    <script src="/scripts/shared.js"></script>
   </body>
 </html>

@@ -6,14 +6,14 @@ firebase.auth().onAuthStateChanged((user) => {
     let cardTemplate = document.getElementById("reportCardTemplate");
 
     // Reads from report collection and creates card in "Your Reported Data"
-    db.collection("report")
+    db.collection("reports")
       .where("userID", "==", user.uid)
       .get()
       .then((allReports) => {
         allReports.forEach((doc) => {
           //iterate through each doc
           var method = doc.data().method; // get value of the "method" key
-          var type = doc.data().type; // get value of the "method" key
+          var type = doc.data().type; // get value of the "type" key
           var details = doc.data().description; // get value of the "description" key
           var image = doc.data().image; //get unique image to each report
           var blocked = doc.data().blocked; //gets the blocked field

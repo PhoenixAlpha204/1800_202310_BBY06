@@ -45,6 +45,8 @@
     />
 
     <!-- Link to styles of your own ------------------>
+    <link rel="stylesheet" href="./styles/shared.css">
+
     <!-- leaflet API for map display -->
     <link
       rel="stylesheet"
@@ -73,14 +75,13 @@
 
     <div class="container" style="margin-bottom: 100px">
       <br />
-      <h1>Report Obstruction</h1>
+      <h1>Report Incident</h1>
       <br />
       <form>
         <div class="form-group">
           <label
             >To select a location, please move the white circle to the location
-            of the obstruction.</label
-          >
+            of the incident.</label>
           <div style="position: relative; width: 50%">
             <div
               id="map"
@@ -90,8 +91,8 @@
           <br />
 
           <div class="form-group">
-            <!--Type of obstruction-->
-            <label>Type of obstruction</label>
+            <!--Type of incident-->
+            <label>What type of incident is this?</label>
             <select class="form-control" id="type">
               <option>Snow</option>
               <option>Ice</option>
@@ -104,18 +105,18 @@
             <label>What mode of transport are you using?</label>
             <select class="form-control" id="method">
               <option>Walking</option>
-              <option>Car</option>
+              <option>Driving</option>
               <option>Transit</option>
-              <option>Bicycle</option>
+              <option>Cycling</option>
             </select>
             <br />
 
-            <!--Severity of obstruction-->
-            <label>How severe is the obstruction?</label>
+            <!--Severity of incident-->
+            <label>How severe is the incident?</label>
             <select class="form-control" id="level">
-              <option>Minor blockage</option>
-              <option>Moderate blockage</option>
-              <option>Complete blockage</option>
+              <option>Minor</option>
+              <option>Moderate</option>
+              <option>Severe</option>
             </select>
             <br />
 
@@ -124,7 +125,7 @@
               class="form-control"
               id="description"
               rows="4"
-              placeholder="Details about the exact location of the obstruction, the kind of obstruction, time of discovery, etc."
+              placeholder="Details about the exact location of the incident, the kind of incident, time of discovery, etc."
             ></textarea>
             <br />
 

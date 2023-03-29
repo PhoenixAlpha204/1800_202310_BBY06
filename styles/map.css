@@ -21,125 +21,92 @@
     height: 60%;
 }
 #filterBtn {right: 170px;}
-#searchBtn {right: 90px;}
+#nearbyBtn {right: 90px;}
 #reportBtn {right: 10px;}
 
-#reportMenu {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: calc(100vh - 64px);
-    z-index: 1002;
-    background-color: rgb(39, 39, 39);
+.markerPopup {
+    width: 150px;
+    min-height: 100px;
 }
-#reportMenu * {
-    position: absolute;
-    z-index: 1003;
-    text-align: center;
-    color: white;
+.markerLikeBtn, .markerDislikeBtn {
+    background-color: rgba(0, 0, 0, 0);
+    margin-right: 12px;
 }
-#reportMenu .title {
-    left: 50vw;
-    top: 5vh;
-    transform: translate(-50%, 0);
-    width: 100vw;
-    font-size: 5vh;
+.markerLikeBtn > img, .markerDislikeBtn > img {
+    width: 20px;
+    height: 20px;
 }
-#reportMenuType, #reportMenuLocation, #reportMenuDescription, #reportMenuThankYou {
-    width: 100%;
-    height: 100%;
-}
-#reportMenuType .subtitle, #reportMenuLocation .subtitle, #reportMenuDescription .subtitle, #reportMenuThankYou .subtitle {
-    left: 50vw;
-    top: 30vh;
-    transform: translate(-50%, 0);
-    width: 100vw;
-    font-size: 4vh;
-}
-#reportMenuType .options {
-    left: 50vw;
-    top: 40vh;
-    transform: translate(-50%, 0);
-    width: 100vw;
-}
-#reportMenuType .options > button {
-    margin: 1vh;
+.markerLikeCount, .markerDislikeCount {
     position: relative;
-    width: 20vh;
-    height: 10vh;
-    font-size: 4vh;
-    border-radius: 2vh;
-    background-color: rgb(76, 76, 76);
+    left: -10px;
 }
-#reportMenuLocation .nextBtn {
-    right: 8vh;
-    bottom: 4vh;
-    width: 20vh;
-    height: 10vh;
-    font-size: 4vh;
-    border-radius: 2vh;
-    background-color: rgb(76, 76, 76);
+.markerPar {
+    position: relative;
+    left: -5px;
+    width: 160px;
 }
-#reportMap {
-    left: 50vw;
-    top: 38vh;
-    transform: translate(-50%, 0);
-    width: 40vh;
-    height: 40vh;
+.markerExtraInfo {
+    position: relative;
+    left: -5px;
+    width: 160px;
+    color: rgb(113, 0, 173);
 }
-#reportTextarea {
-    padding: 2vh;
-    left: 50vw;
-    top: 40vh;
-    transform: translate(-50%, 0);
-    width: 50vh;
-    height: 30vh;
-    border-radius: 1.5vh;
-    font-size: 2vh;
-    background-color: rgb(76, 76, 76);
-    resize: none;
-    text-align: left;
-}
-#reportMenuDescription .uploadImagesBtn, #reportMenuDescription .submitBtn {
-    bottom: 4vh;
-    height: 10vh;
-    font-size: 4vh;
-    border-radius: 2vh;
-    background-color: rgb(76, 76, 76);
-}
-#reportMenuDescription .uploadImagesBtn {
-    right: 24vh;
-    width: 30vh;
-}
-#reportMenuDescription .submitBtn {
-    right: 4vh;
-    width: 18vh;
-}
-#reportMenuThankYou .backToMapBtn {
-    left: 50vw;
-    bottom: 4vh;
-    transform: translate(-50%, 0);
-    width: 26vh;
-    height: 10vh;
-    font-size: 4vh;
-    border-radius: 2vh;
-    background-color: rgb(76, 76, 76);
-}
-#reportMenuThankYou .subtitle {
-    width: 30vh;
-}
-#reportMenuBackBtn {
-    left: 2vh;
-    bottom: 4vh;
-    width: 8vh;
-    height: 8vh;
+.markerSeeReviewsBtn {
+    position: relative;
+    left: -5px;
+    color: rgb(0, 64, 255);
     background-color: rgba(0, 0, 0, 0);
 }
-#reportMenuBackBtn > img {
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+
+#reviewsMenu {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    max-width: 400px;
+    max-height: 400px;
+    z-index: 1000;
+    background-color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow:0 0 15px 15px rgba(0,0,0,0.06);
+}
+#reviewsMenu > * {
+    padding: 0;
+    margin: 16px;
+}
+#reviewsTextArea {
+    width: 80%;
+    min-height: 100px;
+    max-height: 300px;
+    padding: 10px;
+    border-color: rgb(55, 55, 55);
+    border-width: 1px;
+    border-radius: 8px;
+    background-color: rgb(245, 245, 245);
+    resize: vertical;
+}
+#reviewsSubmitBtn {
+    margin-top: 0;
+    padding: 8px;
+    width: 80px;
+    border-radius: 8px;
+    color: white;
+    background-color: rgb(0, 98, 255);
+}
+#reviewsContent {
+    font-size: 16px;
+}
+#reviewsCloseBtn {
+    position: fixed;
+    margin: 0;
+    top: 4px;
+    right: 12px;
+    font-size: 30px;
+    z-index: 1500;
+    color: rgb(127, 127, 127);
+    background-color: rgba(0, 0, 0, 0);
 }

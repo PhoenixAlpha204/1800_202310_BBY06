@@ -76,7 +76,7 @@ function writeReport() {
   let Longitude = map.getCenter().lng;
   let Address;
   
-  if (Description.length > MAX_DESCRIPTION_CHARS) {showError(`Your description cannot be over ${MAX_DESCRIPTION_CHARS} characters long. It is currently ${descriptionChars} characters long.`); return;};
+  // if (Description.length > MAX_DESCRIPTION_CHARS) {showError(`Your description cannot be over ${MAX_DESCRIPTION_CHARS} characters long. It is currently ${descriptionChars} characters long.`); return;};
 
   //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(

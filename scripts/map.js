@@ -1,7 +1,11 @@
 let user;
+var userID;
+
 firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
+    userID = user.uid;
+    showReportsOnMap();
   }
 });
 
@@ -113,33 +117,51 @@ function showReportsOnMap() {
   // collection of markers for grouping
   var markers = L.markerClusterGroup();
   var markerTemp;
-
-  var reportCol = db.collection("reports");
-  reportCol.get().then((reportColData) => {
-    reportColData.forEach((reportDoc) => {
-      var reportDocData = reportDoc.data();
-      var reportDocId = reportDocData.id;
-      console.log(reportDocId, typeof reportDocId);
-      markerTemp = L.marker([reportDocData.location[0], reportDocData.location[1]], {
-        icon: icons[reportDocData.method][reportDocData.level]}).bindPopup(`
-        <div class="markerPopup">
-          <button class="markerLikeBtn" onclick="voteReport(${reportDocId}, ${true})"> <img src="/images/like.png"></button>
-          <label class="markerLikeCount">${reportDocData.likers.length}</label>
-          <button class="markerDislikeBtn" onclick="voteReport(${reportDocId}, ${false})"> <img src="/images/dislike.png"></button>
-          <label class="markerDislikeCount">${
-            reportDocData.dislikers.length
-          }</label>
-          <p class="markerPar">${reportDocData.description}</p>
-          <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
-          <button class="markerSeeReviewsBtn" onclick="seeReviews(${reportDocId})">See reviews</button>
-        </div>
-      `);
-      markers.addLayer(markerTemp);
+  db.collection("users")
+    .doc(userID)
+    .get()
+    .then((userDoc) => {
+      console.log(userID);
+      var filterValues = userDoc.data().filters;
+      var reportCol = db.collection("reports");
+      reportCol.get().then((reportColData) => {
+        reportColData.forEach((reportDoc) => {
+          var reportDocData = reportDoc.data();
+          var reportDocId = reportDocData.id;
+          console.log(reportDocId, typeof reportDocId);
+          if (
+            (reportDocData.method == "Driving" && filterValues[0]) ||
+            (reportDocData.method == "Transit" && filterValues[1]) ||
+            (reportDocData.method == "Cycling" && filterValues[2]) ||
+            (reportDocData.method == "Walking" && filterValues[3])
+          ) {
+            markerTemp = L.marker(
+              [reportDocData.location[0], reportDocData.location[1]],
+              {
+                icon: icons[reportDocData.method][reportDocData.level],
+              }
+            ).bindPopup(`
+            <div class="markerPopup">
+              <button class="markerLikeBtn" onclick="voteReport(${reportDocId}, ${true})"> <img src="/images/like.png"></button>
+              <label class="markerLikeCount">${
+                reportDocData.likers.length
+              }</label>
+              <button class="markerDislikeBtn" onclick="voteReport(${reportDocId}, ${false})"> <img src="/images/dislike.png"></button>
+              <label class="markerDislikeCount">${
+                reportDocData.dislikers.length
+              }</label>
+              <p class="markerPar">${reportDocData.description}</p>
+              <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
+              <button class="markerSeeReviewsBtn" onclick="seeReviews(${reportDocId})">See reviews</button>
+            </div>
+          `);
+            markers.addLayer(markerTemp);
+          }
+        });
+        map.addLayer(markers);
+      });
     });
-    map.addLayer(markers);
-  });
 }
-showReportsOnMap();
 
 function voteReport(reportId, didLike) {
   reportId = reportId.toString();

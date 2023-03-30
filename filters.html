@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Map</title>
+    <title>COMP1800 Project</title>
     <meta name="comp1800 template" content="My 1800 App" />
 
     <!-- Required meta tags -->
@@ -30,7 +30,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-
     <link
       type="text/css"
       rel="stylesheet"
@@ -44,46 +43,69 @@
     />
 
     <!-- Link to styles of your own ------------------>
-    <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="./styles/map.css">
-    <link rel="stylesheet" href="./styles/shared.css">
- 
-    <!-- leaflet API for map display -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-      crossorigin=""
-    ></script>
-
-    <!-- geocoder gets addresses from coordinates -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
-    />
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
-    <!-- marker cluster to group markers -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"
-    />
-    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
   </head>
-
-  <!-- change style so that it is in css, not style here -->
   <body class="bg-light">
-    <div style="position: relative">
-      <div id="map" style="height: 95vh; width: 100vw"></div>
+    <a href="map.html">
+      <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
+    <div class="container" style="margin-bottom: 100px; font-size: 18pt; text-align: center">
+      <header class="text-center">
+        <h1 style="margin-bottom: 3%">Filters</h1>
+      </header>
+      <br /><br /><br /><br />
+      <form>
+        <div class="form-group">
+          <label for="driving" style="margin-right: 20px"> Driving</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="driving"
+            name="driving"
+            value="Driving"
+            checked
+          />
+          <br />
+          <label for="transit" style="margin-right: 27px"> Transit</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="transit"
+            name="transit"
+            value="Transit"
+            checked
+          />
+          <br />
+          <label for="cycling" style="margin-right: 19px"> Cycling</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="cycling"
+            name="cycling"
+            value="Cycling"
+            checked
+          />
+          <br />
+          <label for="walking" style="margin-right: 12px"> Walking</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="walking"
+            name="walking"
+            value="Walking"
+            checked
+          />
+          <br /><br />
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-lg btn-primary pull-right"
+              onclick="changeFilters()"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <!--Navbar-->
@@ -104,33 +126,13 @@
       </div>
     </nav>
 
-    <!-- ali -------------------------------------------->
-
-    <!-- THREE BUTTONS -->
-    <div id="quickAccessBar">
-      <button id="filterBtn" onclick="window.location.href = '/filters.html'"> <img src="/images/filter.png"></button>
-      <button id="nearbyBtn" onclick="window.location.href = '/nearby.html'"> <img src="/images/nearby.png"></button>
-      <button id="reportBtn" onclick="window.location.href = '/report.html'"> <img src="/images/plus.png"> </button>
-    </div>
-
-    <div id="reviewsMenu" hidden>
-      <textarea id="reviewsTextArea" placeholder="Write your own review"></textarea>
-      <button id="reviewsSubmitBtn">Post</button>
-      <h4>All reviews:</h4>
-      <p id="reviewsContent">Be the first one to review this report!</p>
-      <button id="reviewsCloseBtn">X</button>
-    </div>
-
-    <div id="errorPrompt" hidden></div>
-
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
 
     <!-- Link to scripts of your own -->
     <script src="./scripts/firebaseAPI_team06.js"></script>
-    <script src="./scripts/map.js"></script>
-    <script src="/scripts/script.js"></script>
-    <script src="/scripts/shared.js"></script>
+    <script src="./scripts/authentication.js"></script>
+    <script src="./scripts/filters.js"></script>
   </body>
 </html>

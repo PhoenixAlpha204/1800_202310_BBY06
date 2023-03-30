@@ -1,9 +1,9 @@
 let user;
-firebase.auth().onAuthStateChanged(userP => {
+firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
   }
-})
+});
 
 // four types of incident marker
 var marker = L.Icon.extend({
@@ -16,27 +16,27 @@ var marker = L.Icon.extend({
 
 const icons = {
   Cycling: {
-    "Minor": new marker({ iconUrl: "./images/cycling1.png" }),
-    "Moderate": new marker({ iconUrl: "./images/cycling2.png" }),
-    "Severe": new marker({ iconUrl: "./images/cycling3.png" }),
+    Minor: new marker({ iconUrl: "./images/cycling1.png" }),
+    Moderate: new marker({ iconUrl: "./images/cycling2.png" }),
+    Severe: new marker({ iconUrl: "./images/cycling3.png" }),
   },
   Driving: {
-    "Minor": new marker({ iconUrl: "./images/driving1.png" }),
-    "Moderate": new marker({ iconUrl: "./images/driving2.png" }),
-    "Severe": new marker({ iconUrl: "./images/driving3.png" }),
+    Minor: new marker({ iconUrl: "./images/driving1.png" }),
+    Moderate: new marker({ iconUrl: "./images/driving2.png" }),
+    Severe: new marker({ iconUrl: "./images/driving3.png" }),
   },
   Transit: {
-    "Minor": new marker({ iconUrl: "./images/transit1.png" }),
-    "Moderate": new marker({ iconUrl: "./images/transit2.png" }),
-    "Severe": new marker({ iconUrl: "./images/transit3.png" }),
+    Minor: new marker({ iconUrl: "./images/transit1.png" }),
+    Moderate: new marker({ iconUrl: "./images/transit2.png" }),
+    Severe: new marker({ iconUrl: "./images/transit3.png" }),
   },
   Walking: {
-    "Minor": new marker({ iconUrl: "./images/walking1.png" }),
-    "Moderate": new marker({ iconUrl: "./images/walking2.png" }),
-    "Severe": new marker({ iconUrl: "./images/walking3.png" }),
+    Minor: new marker({ iconUrl: "./images/walking1.png" }),
+    Moderate: new marker({ iconUrl: "./images/walking2.png" }),
+    Severe: new marker({ iconUrl: "./images/walking3.png" }),
   },
   userMarker: new marker({ iconUrl: "./images/userMarker.png" }),
-}
+};
 
 var map;
 var geocoder;
@@ -99,42 +99,53 @@ function SetUpMap() {
 SetUpMap();
 
 function showUserMarker() {
-  navigator.geolocation.getCurrentPosition(location => {
-    L.marker([location.coords.latitude, location.coords.longitude], {icon: icons.userMarker})
+  navigator.geolocation.getCurrentPosition((location) => {
+    L.marker([location.coords.latitude, location.coords.longitude], {
+      icon: icons.userMarker,
+    })
       .addTo(map)
       .bindPopup("You are here");
-  })
+  });
 }
 showUserMarker();
 
 function showReportsOnMap() {
-  var reportCol = db.collection("reports")
+  // collection of markers for grouping
+  var markers = L.markerClusterGroup();
+  var markerTemp;
+
+  var reportCol = db.collection("reports");
   reportCol.get().then((reportColData) => {
     reportColData.forEach((reportDoc) => {
       var reportDocData = reportDoc.data();
-      var reportDocId = reportDocData.id; console.log(reportDocId, typeof reportDocId);
-      L.marker([reportDocData.location[0], reportDocData.location[1]], {icon: icons[reportDocData.method][reportDocData.level]})
-        .addTo(map)
-        .bindPopup(`
+      var reportDocId = reportDocData.id;
+      console.log(reportDocId, typeof reportDocId);
+      markerTemp = L.marker([reportDocData.location[0], reportDocData.location[1]], {
+        icon: icons[reportDocData.method][reportDocData.level]}).bindPopup(`
         <div class="markerPopup">
           <button class="markerLikeBtn" onclick="voteReport(${reportDocId}, ${true})"> <img src="/images/like.png"></button>
           <label class="markerLikeCount">${reportDocData.likers.length}</label>
           <button class="markerDislikeBtn" onclick="voteReport(${reportDocId}, ${false})"> <img src="/images/dislike.png"></button>
-          <label class="markerDislikeCount">${reportDocData.dislikers.length}</label>
+          <label class="markerDislikeCount">${
+            reportDocData.dislikers.length
+          }</label>
           <p class="markerPar">${reportDocData.description}</p>
           <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
           <button class="markerSeeReviewsBtn" onclick="seeReviews(${reportDocId})">See reviews</button>
         </div>
       `);
-    })
-  })
+      markers.addLayer(markerTemp);
+    });
+    map.addLayer(markers);
+  });
 }
 showReportsOnMap();
 
 function voteReport(reportId, didLike) {
-  reportId = reportId.toString(); console.log(reportId);
-  var reportDoc = db.collection("reports").doc(reportId)
-  reportDoc.get().then(reportDocGet => {
+  reportId = reportId.toString();
+  console.log(reportId);
+  var reportDoc = db.collection("reports").doc(reportId);
+  reportDoc.get().then((reportDocGet) => {
     var reportDocData = reportDocGet.data();
     var likers = reportDocData.likers;
     var dislikers = reportDocData.dislikers;
@@ -164,7 +175,7 @@ function voteReport(reportId, didLike) {
       }
     }
     setTimeout(() => location.reload(), 1000);
-  })
+  });
 }
 
 // reviews menu
@@ -175,15 +186,20 @@ const reviewsContent = document.getElementById("reviewsContent");
 const reviewsCloseBtn = document.getElementById("reviewsCloseBtn");
 
 function seeReviews(reportId) {
-  reportId = reportId.toString(); console.log(reportId, typeof reportId)
-  var reportDoc = db.collection("reports").doc(reportId); console.log(reportDoc)
-  reportDoc.get().then(reportDocGet => { console.log(reportDocGet)
+  reportId = reportId.toString();
+  console.log(reportId, typeof reportId);
+  var reportDoc = db.collection("reports").doc(reportId);
+  console.log(reportDoc);
+  reportDoc.get().then((reportDocGet) => {
+    console.log(reportDocGet);
     var reportDocData = reportDocGet.data();
     selectedReportId = reportId;
 
-    var reviewsContentStr = ""; 
-    if (reportDocData.reviews.length > 0) {reportDocData.reviews.reverse();};
-    reportDocData.reviews.forEach(function(review) {
+    var reviewsContentStr = "";
+    if (reportDocData.reviews.length > 0) {
+      reportDocData.reviews.reverse();
+    }
+    reportDocData.reviews.forEach(function (review) {
       var timeDiff = Math.floor((Date.now() - review.time) / 1000);
       var daysDiff = timeDiff / 86400;
       var hoursDiff = daysDiff * 24;
@@ -202,27 +218,36 @@ function seeReviews(reportId) {
       diff = Math.floor(diff);
       var timeDiffStr;
       if (minDiff >= 1) {
-        if (diff != 1) { unit += "s" };
+        if (diff != 1) {
+          unit += "s";
+        }
         timeDiffStr = `${diff} ${unit} ago`;
       } else {
         timeDiffStr = "just now";
       }
       reviewsContentStr += `${review.fullName} (${timeDiffStr}):\n${review.body}\n\n`;
-    })
+    });
     reviewsContent.innerText = reviewsContentStr;
     reviewsMenu.hidden = false;
-  })
+  });
 }
 
-reviewsCloseBtn.onclick = function () { reviewsMenu.hidden = true };
+reviewsCloseBtn.onclick = function () {
+  reviewsMenu.hidden = true;
+};
 reviewsSubmitBtn.onclick = function () {
   var reportDoc = db.collection("reports").doc(selectedReportId);
   reportDoc.get().then((reportDocGet) => {
     var reportDocData = reportDocGet.data();
     var reviews = reportDocData.reviews;
-    reviews.push({ uid: user.uid, fullName: user.displayName, body: reviewsTextArea.value, time: Date.now() });
+    reviews.push({
+      uid: user.uid,
+      fullName: user.displayName,
+      body: reviewsTextArea.value,
+      time: Date.now(),
+    });
     reportDoc.set({ reviews: reviews }, { merge: true });
     reviewsTextArea.value = "";
     reviewsMenu.hidden = true;
-  })
-}
+  });
+};

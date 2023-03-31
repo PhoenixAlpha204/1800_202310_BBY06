@@ -5,8 +5,8 @@ firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
     userID = user.uid;
-    showReportsOnMap();
     showUserMarker();
+    showReportsOnMap();
   }
 });
 

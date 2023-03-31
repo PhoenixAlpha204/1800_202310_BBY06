@@ -6,6 +6,7 @@ firebase.auth().onAuthStateChanged((userP) => {
     user = userP;
     userID = user.uid;
     showReportsOnMap();
+    showUserMarker();
   }
 });
 
@@ -108,10 +109,8 @@ function showUserMarker() {
       icon: icons.userMarker,
     })
       .addTo(map)
-      .bindPopup("You are here");
   });
 }
-showUserMarker();
 
 function showReportsOnMap() {
   // collection of markers for grouping

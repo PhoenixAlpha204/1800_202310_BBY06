@@ -153,6 +153,9 @@ function showReportsOnMap() {
               <p class="markerPar">${reportDocData.description}</p>
               <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
               <button class="markerSeeReviewsBtn" onclick="seeReviews(${reportDocId})">See reviews</button>
+              <br><br>
+              <button type="button" class="btn btn-sm btn-primary"
+              onclick="updateReport('${reportDoc.id}')">Update Info</button>
             </div>
           `);
             markers.addLayer(markerTemp);
@@ -273,3 +276,7 @@ reviewsSubmitBtn.onclick = function () {
     reviewsMenu.hidden = true;
   });
 };
+
+function updateReport(reportID) {
+  window.location.href = "updateReport.html?id=" + reportID;
+}

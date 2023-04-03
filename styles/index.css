@@ -1,24 +1,15 @@
-.index_back {
-  background-image: url("../images/snow_scene.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-#description {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 75vh;
-}
-
-.colouring {
-  display: inline-block;
-  backdrop-filter: brightness(0.55);
-  color: white;
-  padding: 2%;
-}
-
 .logo {
     max-width: 25%;
     max-height: 25%;
+}
+.container {
+  text-align: center;
+}
+
+h1, h2 {
+  background-image: linear-gradient(90deg, #4d78ef, #709df7, #7ef47d);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
 }

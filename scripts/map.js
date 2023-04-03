@@ -100,6 +100,17 @@ function SetUpMap() {
       }
     });
   });
+
+  // Get the user's current location
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      // Center the map on the user's location
+      map.setView([position.coords.latitude, position.coords.longitude], 15);
+    });
+  } else {
+    // Geolocation is not supported
+    alert("Geolocation is not supported by your browser");
+  }
 }
 SetUpMap();
 
@@ -107,8 +118,7 @@ function showUserMarker() {
   navigator.geolocation.getCurrentPosition((location) => {
     L.marker([location.coords.latitude, location.coords.longitude], {
       icon: icons.userMarker,
-    })
-      .addTo(map)
+    }).addTo(map);
   });
 }
 

@@ -1,0 +1,14 @@
+.navbar-custom {
+    background-color: #0f5bc5;
+  }
+  
+  .nav-link {
+    color: #ffffff;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out;
+  }
+  
+  .nav-link:hover {
+    background-image: linear-gradient(to bottom, #0f5bc5, #1268e0);
+    color: #ffffff;
+  }

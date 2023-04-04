@@ -149,6 +149,8 @@ function showReportsOnMap() {
                 reportDocData.dislikers.length
               }
               </label>
+              <br><br>
+              <b>${reportDocData.address}</b>
               <p class="markerPar">${reportDocData.description}</p>
               <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
               <button class="markerSeeReviewsBtn" onclick="seeReviews('${reportDocId}')">See reviews</button>

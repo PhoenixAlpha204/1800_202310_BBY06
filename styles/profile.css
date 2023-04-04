@@ -8,7 +8,17 @@ label {
 
 img {
     object-fit: cover;
-    width: min(333px, 90vw);
-    height: min(333px, 90vw);
+    width: min(400px, 90vw);
+    height: min(406px, 90vw);
     border-radius: 50%;
+    border: 1px solid black;
 }
+
+img:hover {
+    filter: brightness(80%);
+}
+
+.welcome {
+    text-align: center;
+}
+

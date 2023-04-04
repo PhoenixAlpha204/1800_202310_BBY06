@@ -1,4 +1,4 @@
-const MAX_DST = 100 // kilometers
+const MAX_DST = 5 // kilometers
 const nearbyReports = document.getElementById("nearbyReports");
 
 let user;

@@ -23,15 +23,15 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Get the user's current location
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    // Center the map on the user's location
-    map.setView([position.coords.latitude, position.coords.longitude], 15);
-  });
-} else {
-  // Geolocation is not supported
-  alert("Geolocation is not supported by your browser");
-}
+// if ("geolocation" in navigator) {
+//   navigator.geolocation.getCurrentPosition(function (position) {
+//     // Center the map on the user's location
+//     map.setView([position.coords.latitude, position.coords.longitude], 15);
+//   });
+// } else {
+//   // Geolocation is not supported
+//   alert("Geolocation is not supported by your browser");
+// }
 
 var circle = L.circle(map.getCenter(), {
   color: "#0f5bc5",
@@ -73,6 +73,9 @@ db.collection("reports")
     document.getElementById("level").value = docData.level;
     document.getElementById("method").value = docData.method;
     document.getElementById("description").value = docData.description;
+    var lat = docData.location[0];
+    var lng = docData.location[1];
+    map.setView([lat, lng], 15);
     var isBlocked = docData.blocked;
     if (isBlocked == "Yes") {
       document.getElementById("blockedYes").checked = true;
@@ -193,7 +196,7 @@ function uploadPic(postDocID) {
             // AFTER .update is done
             .then(function () {
               console.log("4. Added pic URL to Firestore.");
-              alert("Report received!");
+              // alert("Report received!");
               window.location.href = "thanks.html";
             });
         });

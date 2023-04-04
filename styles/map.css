@@ -23,17 +23,26 @@
 #filterBtn {
   right: 170px;
 }
+
 #nearbyBtn {
   right: 90px;
 }
+
 #reportBtn {
   right: 10px;
+}
+
+#filterBtn:hover,
+#nearbyBtn:hover,
+#reportBtn:hover {
+  filter: brightness(95%);
 }
 
 .markerPopup {
   width: 150px;
   min-height: 100px;
 }
+
 .markerImg {
   max-width: 140px;
   max-height: 140px;
@@ -42,16 +51,24 @@
   background-color: rgb(222, 222, 222);
   border-radius: 8px;
 }
+
 .markerLikeBtn,
 .markerDislikeBtn {
   background-color: rgba(0, 0, 0, 0);
   margin-right: 12px;
 }
+
 .markerLikeBtn > img,
 .markerDislikeBtn > img {
   width: 20px;
   height: 20px;
 }
+
+.markerLikeBtn > img:hover,
+.markerDislikeBtn > img:hover {
+  filter: brightness(120%);
+}
+
 .markerLikeCount,
 .markerDislikeCount {
   position: relative;

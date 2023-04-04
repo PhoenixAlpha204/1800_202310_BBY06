@@ -107,8 +107,7 @@ function showUserMarker() {
   navigator.geolocation.getCurrentPosition((location) => {
     L.marker([location.coords.latitude, location.coords.longitude], {
       icon: icons.userMarker,
-    })
-      .addTo(map)
+    }).addTo(map);
   });
 }
 
@@ -146,7 +145,9 @@ function showReportsOnMap() {
               <label class="markerLikeCount">${reportDocData.likers.length}
               </label>
               <button class="markerDislikeBtn" onclick="voteReport('${reportDocId}', ${false})"> <img src="/images/dislike.png"></button>
-              <label class="markerDislikeCount">${reportDocData.dislikers.length}
+              <label class="markerDislikeCount">${
+                reportDocData.dislikers.length
+              }
               </label>
               <p class="markerPar">${reportDocData.description}</p>
               <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
@@ -198,7 +199,7 @@ function voteReport(reportId, didLike) {
       }
       setTimeout(() => location.reload(), 1000);
     }
-  })
+  });
 }
 
 // reviews menu
@@ -251,8 +252,8 @@ function seeReviews(reportId) {
         reviewsContent.innerText = reviewsContentStr;
         reviewsMenu.hidden = false;
       }
-    })
-  })
+    });
+  });
 }
 // function getReportDocData(reportId) {
 //   let reportCol = db.collection("reports");

@@ -46,8 +46,7 @@
 
     <!-- Link to styles of your own ------------------>
     <link rel="stylesheet" href="./styles/profile.css" />
-    <link rel="stylesheet" href="./styles/global.css">
-    
+    <link rel="stylesheet" href="./styles/global.css" />
   </head>
   <body class="back_image">
     <a href="map.html">
@@ -56,13 +55,16 @@
     <!-- margin prevents navbar overlap -->
     <div style="margin-bottom: 100px">
       <div style="text-align: center">
-        <label for="fileField" id="pictureContainer"
-          ><i class="material-icons" style="font-size: min(300pt, 90vw)"
+        <label for="fileField" id="pictureContainer">
+          <i class="material-icons" style="font-size: min(300pt, 90vw)"
             >account_circle</i
           ></label
         >
         <input type="file" id="fileField" name="file" accept="image/*" />
-        <p><span id="name-goes-here">Not Logged In</span></p>
+      </div>
+      <br /><br />
+      <div class="welcome">
+        <p>Welcome, <span id="name-goes-here">Not Logged In</span></p>
       </div>
       <br /><br />
       <!-- buttons that scale with screen width -->
@@ -70,7 +72,10 @@
         <a class="btn btn-secondary navbar-custom" href="read_reports.html"
           >Your Reported Data</a
         >
-        <a class="btn btn-secondary navbar-custom" href="index.html" id="signout"
+        <a
+          class="btn btn-secondary navbar-custom"
+          href="index.html"
+          id="signout"
           >Return to Home</a
         >
       </div>

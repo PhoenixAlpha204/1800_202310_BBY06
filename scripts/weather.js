@@ -22,6 +22,7 @@ async function useData(lat, lng) {
   if (geoData[0].hasOwnProperty("state")) {
     cityName += ", " + geoData[0].state;
   }
+  console.log(geoData);
   document.getElementById("cityName").innerText = cityName;
 
   var apiCall =
@@ -32,6 +33,7 @@ async function useData(lat, lng) {
     "&appid=6f553bf67c4b3e8dafe308ae035f5fa1&units=metric";
   let response = await fetch(apiCall);
   let weatherData = await response.json();
+  console.log(weatherData);
   let currentTemp = Math.round(weatherData.main.temp);
   let highTemp = Math.round(weatherData.main.temp_max);
   let lowTemp = Math.round(weatherData.main.temp_min);

@@ -24,6 +24,14 @@ firebase.auth().onAuthStateChanged((user) => {
           newcard.querySelector('.card-image').src = image;
           newcard.querySelector(".card-title").innerHTML = type;
           newcard.querySelector(".card-text").innerHTML = "Description: " + details;
+          newcard.querySelector(".update").addEventListener("click", function (e) {
+            window.location.href = window.location.href = "updateReport2.html?id=" + doc.id;
+          });
+          newcard.querySelector(".delete").addEventListener("click", function (e) {
+            db.collection("reports").doc(doc.id).delete().then(() => {
+              window.location.href = "read_reports.html";
+            })
+          });
 
           newcard.querySelector(".card-length").innerText =
             "Transport method: " +

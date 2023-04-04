@@ -34,9 +34,9 @@ if ("geolocation" in navigator) {
 }
 
 var circle = L.circle(map.getCenter(), {
-  color: "#fff",
+  color: "#0f5bc5",
   opacity: 0.9,
-  fillColor: "#fff",
+  fillColor: "#0f5bc5",
   fillOpacity: 0.95,
   radius: 30,
 }).addTo(map);

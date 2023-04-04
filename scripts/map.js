@@ -288,5 +288,5 @@ reviewsSubmitBtn.onclick = function () {
 };
 
 function updateReport(reportID) {
-  window.location.href = "updateReport.html?id=" + reportID;
+  window.location.href = "updateReport2.html?id=" + reportID;
 }

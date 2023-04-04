@@ -141,6 +141,7 @@ function showReportsOnMap() {
               }
             ).bindPopup(`
             <div class="markerPopup">
+              <img class="markerImg" src="${reportDocData.image}"></img><br><br>
               <button class="markerLikeBtn" onclick="voteReport('${reportDocId}', ${true})"> <img src="/images/like.png"></button>
               <label class="markerLikeCount">${reportDocData.likers.length}
               </label>

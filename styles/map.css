@@ -34,6 +34,14 @@
   width: 150px;
   min-height: 100px;
 }
+.markerImg {
+  max-width: 140px;
+  max-height: 140px;
+  object-fit: contain;
+  padding: 0px;
+  background-color: rgb(222, 222, 222);
+  border-radius: 8px;
+}
 .markerLikeBtn,
 .markerDislikeBtn {
   background-color: rgba(0, 0, 0, 0);

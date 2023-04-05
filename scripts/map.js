@@ -5,8 +5,8 @@ firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
     userID = user.uid;
-    showUserMarker();
     showReportsOnMap();
+    showUserMarker();
   }
 });
 
@@ -302,5 +302,5 @@ reviewsSubmitBtn.onclick = function () {
 };
 
 function updateReport(reportID) {
-  window.location.href = "updateReport2.html?id=" + reportID;
+  window.location.href = "updateReport.html?id=" + reportID;
 }

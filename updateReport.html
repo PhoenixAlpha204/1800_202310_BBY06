@@ -30,6 +30,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
     <link
       type="text/css"
       rel="stylesheet"
@@ -43,36 +45,182 @@
     />
 
     <!-- Link to styles of your own ------------------>
+    <link rel="stylesheet" href="./styles/shared.css">
     <link rel="stylesheet" href="./styles/global.css">
-    
+
+    <!-- leaflet API for map display -->
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""
+  ></script>
+
+  <!-- geocoder gets addresses from coordinates -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
+
   <body class="back_image">
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
-    <header class="text-center">
-      <h1 style="margin-bottom: 3%">Update Report</h1>
-    </header>
-    <!-- margin prevents navbar overlap -->
-    <div style="margin-bottom: 100px; font-size: 24pt; text-align: center">
-      <br /><br /><br /><br />
+
+    <div class="container" style="margin-bottom: 100px">
+      <br />
+      <h1>Update Report</h1>
+      <br />
       <form>
-        <p>Is the incident still there?</p>
-        <button
-          type="button"
-          class="btn btn-lg btn-primary pull-right"
-          onclick="yes()"
-        >
-          Yes
-        </button>
-        <br />
-        <button
-          type="button"
-          class="btn btn-lg btn-primary pull-right"
-          onclick="no()"
-        >
-          No
-        </button>
+        <div class="form-group">
+          <label
+            >To select a location, please move the circle to the location
+            of the incident.</label>
+          <div style="position: relative; width: 50%">
+            <div
+              id="map"
+              style="height: min(80vw, 400px); width: min(80vw, 600px)"
+            ></div>
+          </div>
+          <br />
+
+          <div class="form-group">
+            <!--Type of incident-->
+            <label>What type of incident is this?</label>
+            <select class="form-control" id="type">
+              <option>Snow</option>
+              <option>Ice</option>
+              <option>Flooding</option>
+              <option>Other</option>
+            </select>
+            <br />
+
+            <!--Mode of transport-->
+            <label>What mode of transport are you using?</label>
+            <select class="form-control" id="method">
+              <option>Walking</option>
+              <option>Driving</option>
+              <option>Transit</option>
+              <option>Cycling</option>
+            </select>
+            <br />
+
+            <!--Severity of incident-->
+            <label>How severe is the incident?</label>
+            <select class="form-control" id="level">
+              <option>Minor</option>
+              <option>Moderate</option>
+              <option>Severe</option>
+            </select>
+            <br />
+
+            <label>Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="4"
+              maxlength="1000"
+              placeholder="Details about the exact location of the incident, the kind of incident, time of discovery, etc."
+            ></textarea>
+            <br />
+
+            <!--Blocked-->
+            <label
+              >Blocked? <span style="display: inline-block; width: 26pt"></span
+            ></label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="Yes"
+                id="blockedYes"
+              />
+              <label>Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="No"
+                id="blockedNo"
+              />
+              <label>No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="blocked"
+                value="Not sure"
+                checked=""
+              />
+              <label>Not sure</label>
+            </div>
+            <br />
+
+            <!--Fixes underway-->
+            <label
+              >Fixes underway?
+              <span style="display: inline-block; width: 20pt"></span
+            ></label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="Yes"
+                id="fixYes"
+              />
+              <label>Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="No"
+                id="fixNo"
+              />
+              <label>No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="fixes"
+                value="Not sure"
+                checked=""
+              />
+              <label>Not sure</label>
+            </div>
+            <br />
+
+            <div class="container py-3">
+              <input type="file" id="mypic-input" accept="image/*" />
+              <img id="mypic-goes-here" width="100" height="100" />
+            </div>
+
+            <!--Submit button-->
+            <div class="d-flex justify-content-end">
+              <button
+                type="button"
+                class="btn btn-lg btn-primary pull-right"
+                onclick="writeReport()"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
 
@@ -99,8 +247,7 @@
     <!---------------------------------------------->
 
     <!-- Link to scripts of your own -->
-    <script src="./scripts/firebaseAPI_team06.js"></script>
-    <script src="./scripts/authentication.js"></script>
-    <script src="./scripts/updateReport1.js"></script>
+    <script src="/scripts/firebaseAPI_team06.js"></script>
+    <script src="/scripts/updateReport.js"></script>
   </body>
 </html>

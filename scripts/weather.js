@@ -1,6 +1,7 @@
 var userLat;
 var userLng;
 
+// get and save user's location
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function (position) {
     userLat = position.coords.latitude;
@@ -9,6 +10,8 @@ if (navigator.geolocation) {
   });
 }
 
+// get weather data about user's location from OpenWeatherMap
+// lat and lng: coordinates of the location
 async function useData(lat, lng) {
   var geocodingCall =
     "https://api.openweathermap.org/geo/1.0/reverse?lat=" +
@@ -16,6 +19,7 @@ async function useData(lat, lng) {
     "&lon=" +
     lng +
     "&limit=1&appid=6f553bf67c4b3e8dafe308ae035f5fa1&units=metric";
+  // get and display the name of the city the user is in
   let geoResponse = await fetch(geocodingCall);
   let geoData = await geoResponse.json();
   let cityName = geoData[0].name;
@@ -25,6 +29,7 @@ async function useData(lat, lng) {
   console.log(geoData);
   document.getElementById("cityName").innerText = cityName;
 
+  // get and display various data about the weather conditions
   var apiCall =
     "https://api.openweathermap.org/data/2.5/weather?lat=" +
     userLat +

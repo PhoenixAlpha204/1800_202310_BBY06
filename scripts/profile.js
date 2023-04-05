@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       }
       let file = document.getElementById("fileField");
-      //put the uploaded file on Firebase
+      // if user uploads new profile pic, store it on Firebase
       document
         .querySelector("input[type=file]")
         .addEventListener("change", function () {
@@ -46,6 +46,7 @@ firebase.auth().onAuthStateChanged((user) => {
                   console.log(error);
                 });
             }
+            // configure the file metadata before uploading
             let fileName = file.files[0].name;
             let fileExt = fileName.split(".").pop();
             let contentType = "image/" + fileExt;

@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged((userP) => {
   }
 });
 
-// four types of incident marker
+// defining incident markers, with type of transportation and severity
 let marker = L.Icon.extend({
   options: {
     iconSize: [80, 80], // size of the icon
@@ -18,7 +18,6 @@ let marker = L.Icon.extend({
     popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
   },
 });
-
 const icons = {
   Cycling: {
     Minor: new marker({ iconUrl: "./images/cycling1.png" }),
@@ -114,6 +113,7 @@ function SetUpMap() {
 }
 SetUpMap();
 
+// show an icon at the user's location
 function showUserMarker() {
   navigator.geolocation.getCurrentPosition((location) => {
     L.marker([location.coords.latitude, location.coords.longitude], {
@@ -122,6 +122,7 @@ function showUserMarker() {
   });
 }
 
+// get reports from database and display at correct coordinates
 function showReportsOnMap() {
   // collection of markers for grouping
   let markers = L.markerClusterGroup();
@@ -138,6 +139,7 @@ function showReportsOnMap() {
           let reportDocData = reportDoc.data();
           let reportDocId = reportDoc.id;
           console.log(reportDocId, typeof reportDocId);
+          // only display the marker if mode matches user's selected filters
           if (
             (reportDocData.method == "Driving" && filterValues[0]) ||
             (reportDocData.method == "Transit" && filterValues[1]) ||
@@ -149,6 +151,7 @@ function showReportsOnMap() {
               {
                 icon: icons[reportDocData.method][reportDocData.level],
               }
+            // marker will display information about the report when clicked
             ).bindPopup(`
             <div class="markerPopup">
               <img class="markerImg" src="${reportDocData.image}"></img><br><br>
@@ -268,18 +271,6 @@ function seeReviews(reportId) {
     });
   });
 }
-// function getReportDocData(reportId) {
-//   let reportCol = db.collection("reports");
-//   reportCol.get().then((reportColData) => {
-//     reportColData.forEach((reportDoc) => {
-//       let reportDocData = reportDoc.data();
-//       console.log(typeof reportDocData.id, reportDocData.id)
-//       if (reportDocData.id == reportId) {
-//         return reportDocData;
-//       }
-//     })
-//   })
-// }
 
 reviewsCloseBtn.onclick = function () {
   reviewsMenu.hidden = true;
@@ -301,6 +292,8 @@ reviewsSubmitBtn.onclick = function () {
   });
 };
 
+// allow user to edit report
+// reportID: passes id of the report to be edited
 function updateReport(reportID) {
   window.location.href = "updateReport.html?id=" + reportID;
 }

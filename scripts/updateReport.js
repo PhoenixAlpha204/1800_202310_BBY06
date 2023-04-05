@@ -22,17 +22,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-// Get the user's current location
-// if ("geolocation" in navigator) {
-//   navigator.geolocation.getCurrentPosition(function (position) {
-//     // Center the map on the user's location
-//     map.setView([position.coords.latitude, position.coords.longitude], 15);
-//   });
-// } else {
-//   // Geolocation is not supported
-//   alert("Geolocation is not supported by your browser");
-// }
-
+// circle in middle of map, to indicate location that will be read
 var circle = L.circle(map.getCenter(), {
   color: "#0f5bc5",
   opacity: 0.9,
@@ -40,7 +30,6 @@ var circle = L.circle(map.getCenter(), {
   fillOpacity: 0.95,
   radius: 30,
 }).addTo(map);
-
 map.on("move", function () {
   circle.setLatLng(map.getCenter());
   //console.log(map.getCenter());
@@ -61,7 +50,7 @@ function listenFileSelect() {
 }
 listenFileSelect();
 
-// Pre-populate fields
+// Pre-populate fields with Firestore data
 const myURL = new URLSearchParams(document.location.search);
 const id = myURL.get("id");
 db.collection("reports")
@@ -103,8 +92,6 @@ function writeReport() {
   let Latitude = map.getCenter().lat;
   let Longitude = map.getCenter().lng;
   let Address;
-
-  // if (Description.length > MAX_DESCRIPTION_CHARS) {showError(`Your description cannot be over ${MAX_DESCRIPTION_CHARS} characters long. It is currently ${descriptionChars} characters long.`); return;};
 
   //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(

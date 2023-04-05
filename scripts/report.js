@@ -35,6 +35,7 @@ if ("geolocation" in navigator) {
   alert("Geolocation is not supported by your browser");
 }
 
+// circle in middle of map, to indicate location that will be read
 var circle = L.circle(map.getCenter(), {
   color: "#0f5bc5",
   opacity: 0.9,
@@ -42,7 +43,6 @@ var circle = L.circle(map.getCenter(), {
   fillOpacity: 0.95,
   radius: 30,
 }).addTo(map);
-
 map.on("move", function () {
   circle.setLatLng(map.getCenter());
   //console.log(map.getCenter());
@@ -76,8 +76,6 @@ function writeReport() {
   let Longitude = map.getCenter().lng;
   let Address;
   
-  // if (Description.length > MAX_DESCRIPTION_CHARS) {showError(`Your description cannot be over ${MAX_DESCRIPTION_CHARS} characters long. It is currently ${descriptionChars} characters long.`); return;};
-
   //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(
     map.getCenter(),

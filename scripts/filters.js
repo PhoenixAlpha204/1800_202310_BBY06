@@ -5,8 +5,9 @@ firebase.auth().onAuthStateChanged((user) => {
     var currentUser = db.collection("users").doc(user.uid);
     userID = user.uid;
 
-    //get the document for current user.
+    // get the document for current user.
     currentUser.get().then((userDoc) => {
+      // set the filter checkboxes to the user's previous selection
       var filters = userDoc.data().filters;
       if (!filters[0]) {
         document.getElementById("driving").checked = false;
@@ -27,6 +28,7 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
+// update the filters on Firestore with the user's changes
 function changeFilters() {
   db.collection("users")
     .doc(userID)

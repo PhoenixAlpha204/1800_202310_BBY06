@@ -1,6 +1,7 @@
 let user;
 let userID;
 
+// markers will only be shown when user is logged in
 firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
@@ -44,13 +45,41 @@ const icons = {
 
 let map;
 let geocoder;
-let selectedReportId;
 
 function SetUpMap() {
-  // map will be initialized centered on BCIT campus
+  // map will be initialized centered on BCIT campus if geolocation not supported
   map = L.map("map").setView([49.251, -123], 15);
+  setUpGeocoder();
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
 
-  // initializes the geocoder
+  // displays nearest address on map on click
+  let marker;
+  map.on("click", function (e) {
+    geocoder.reverse(e.latlng, map.options.crs.scale(18), function (results) {
+      let r = results[0];
+      if (r) {
+        if (marker) {
+          marker
+            .setLatLng(r.center)
+            .setPopupContent(r.html || r.name)
+            .openPopup();
+        } else {
+          marker = L.marker(r.center).bindPopup(r.name).addTo(map).openPopup();
+        }
+      }
+    });
+  });
+
+  locateUser();
+}
+SetUpMap();
+
+// initializes the geocoder
+function setUpGeocoder() {
   geocoder = L.Control.Geocoder.nominatim();
   if (typeof URLSearchParams !== "undefined" && location.search) {
     // parse /?geocoder=nominatim from URL
@@ -70,37 +99,13 @@ function SetUpMap() {
     placeholder: "Search here...",
     geocoder: geocoder,
   }).addTo(map);
-  let marker;
-
   setTimeout(function () {
     control.setQuery("");
   }, 12000);
+}
 
-  // initializes map
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(map);
-
-  // displays nearest address on map on click
-  map.on("click", function (e) {
-    geocoder.reverse(e.latlng, map.options.crs.scale(18), function (results) {
-      let r = results[0];
-      if (r) {
-        if (marker) {
-          marker
-            .setLatLng(r.center)
-            .setPopupContent(r.html || r.name)
-            .openPopup();
-        } else {
-          marker = L.marker(r.center).bindPopup(r.name).addTo(map).openPopup();
-        }
-      }
-    });
-  });
-
-  // Get the user's current location
+// Get the user's current location
+function locateUser() {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function (position) {
       // Center the map on the user's location
@@ -111,7 +116,6 @@ function SetUpMap() {
     alert("Geolocation is not supported by your browser");
   }
 }
-SetUpMap();
 
 // show an icon at the user's location
 function showUserMarker() {
@@ -131,54 +135,68 @@ function showReportsOnMap() {
     .doc(userID)
     .get()
     .then((userDoc) => {
-      console.log(userID);
       let filterValues = userDoc.data().filters;
-      let reportCol = db.collection("reports");
-      reportCol.get().then((reportColData) => {
-        reportColData.forEach((reportDoc) => {
-          let reportDocData = reportDoc.data();
-          let reportDocId = reportDoc.id;
-          console.log(reportDocId, typeof reportDocId);
-          // only display the marker if mode matches user's selected filters
-          if (
-            (reportDocData.method == "Driving" && filterValues[0]) ||
-            (reportDocData.method == "Transit" && filterValues[1]) ||
-            (reportDocData.method == "Cycling" && filterValues[2]) ||
-            (reportDocData.method == "Walking" && filterValues[3])
-          ) {
-            markerTemp = L.marker(
-              [reportDocData.location[0], reportDocData.location[1]],
-              {
-                icon: icons[reportDocData.method][reportDocData.level],
-              }
-            // marker will display information about the report when clicked
-            ).bindPopup(`
-            <div class="markerPopup">
-              <img class="markerImg" src="${reportDocData.image}"></img><br><br>
-              <button class="markerLikeBtn" onclick="voteReport('${reportDocId}', ${true})"> <img src="/images/like.png"></button>
-              <label class="markerLikeCount">${reportDocData.likers.length}
-              </label>
-              <button class="markerDislikeBtn" onclick="voteReport('${reportDocId}', ${false})"> <img src="/images/dislike.png"></button>
-              <label class="markerDislikeCount">${
-                reportDocData.dislikers.length
-              }
-              </label>
-              <br><br>
-              <b>${reportDocData.address}</b>
-              <p class="markerPar">${reportDocData.description}</p>
-              <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
-              <button class="markerSeeReviewsBtn" onclick="seeReviews('${reportDocId}')">See reviews</button>
-              <br><br>
-              <button type="button" class="btn btn-sm btn-primary"
-              onclick="updateReport('${reportDocId}')">Update Info</button>
-            </div>
-          `);
-            markers.addLayer(markerTemp);
-          }
+      db.collection("reports")
+        .get()
+        .then((reportColData) => {
+          reportColData.forEach((reportDoc) => {
+            let reportDocData = reportDoc.data();
+            let reportDocId = reportDoc.id;
+            // only display the marker if mode matches user's selected filters
+            if (
+              (reportDocData.method == "Driving" && filterValues[0]) ||
+              (reportDocData.method == "Transit" && filterValues[1]) ||
+              (reportDocData.method == "Cycling" && filterValues[2]) ||
+              (reportDocData.method == "Walking" && filterValues[3])
+            ) {
+              showOneReport(
+                reportDocData,
+                reportDocId,
+                filterValues,
+                markerTemp,
+                markers
+              );
+            }
+          });
+          map.addLayer(markers);
         });
-        map.addLayer(markers);
-      });
     });
+}
+
+// format and place one report in the markers collection for display on map
+// reportDocData: data of the report
+// reportDocId: Firestore's ID for the report
+// markerTemp: the marker object that will be placed
+// markers: the marker collection
+function showOneReport(
+  reportDocData,
+  reportDocId,
+  markerTemp,
+  markers
+) {
+  markerTemp = L.marker(
+    [reportDocData.location[0], reportDocData.location[1]],
+    {
+      icon: icons[reportDocData.method][reportDocData.level],
+    }
+    // marker will display information about the report when clicked
+  ).bindPopup(`<div class="markerPopup">
+    <img class="markerImg" src="${reportDocData.image}"></img><br><br>
+    <button class="markerLikeBtn" onclick="voteReport('${reportDocId}', ${true})"> <img src="/images/like.png"></button>
+    <label class="markerLikeCount">${reportDocData.likers.length}
+    </label>
+    <button class="markerDislikeBtn" onclick="voteReport('${reportDocId}', ${false})"> <img src="/images/dislike.png"></button>
+    <label class="markerDislikeCount">${reportDocData.dislikers.length}</label>
+    <br><br>
+    <b>${reportDocData.address}</b>
+    <p class="markerPar">${reportDocData.description}</p>
+    <p class="markerExtraInfo">Blocked: ${reportDocData.blocked.toLowerCase()}<br>Fixing: ${reportDocData.fixes.toLowerCase()}</p>
+    <button class="markerSeeReviewsBtn" onclick="seeReviews('${reportDocId}')">See reviews</button>
+    <br><br>
+    <button type="button" class="btn btn-sm btn-primary"
+    onclick="updateReport('${reportDocId}')">Update Info</button>
+    </div>`);
+  markers.addLayer(markerTemp);
 }
 
 function voteReport(reportId, didLike) {
@@ -224,6 +242,8 @@ const reviewsTextArea = document.getElementById("reviewsTextArea");
 const reviewsSubmitBtn = document.getElementById("reviewsSubmitBtn");
 const reviewsContent = document.getElementById("reviewsContent");
 const reviewsCloseBtn = document.getElementById("reviewsCloseBtn");
+
+let selectedReportId;
 
 function seeReviews(reportId) {
   let reportCol = db.collection("reports");

@@ -80,20 +80,9 @@ db.collection("reports")
     document.getElementById("mypic-goes-here").src = docData.image;
   });
 
-// Submits information from report page to Firestore collection
+// find address with geocoder, wait for result and call write to Firestore
 function writeReport() {
-  console.log("Inside write report");
-  let Type = document.getElementById("type").value;
-  let Level = document.getElementById("level").value;
-  let Method = document.getElementById("method").value;
-  let Description = document.getElementById("description").value;
-  let Blocked = document.querySelector('input[name="blocked"]:checked').value;
-  let Fixes = document.querySelector('input[name="fixes"]:checked').value;
-  let Latitude = map.getCenter().lat;
-  let Longitude = map.getCenter().lng;
   let Address;
-
-  //find address with geocoder, wait for result before logging to Firestore
   geocoder.reverse(
     map.getCenter(),
     map.options.crs.scale(18),
@@ -108,7 +97,6 @@ function writeReport() {
       } else {
         Address = "No known address";
       }
-      console.log(Level, Method, Description, Blocked, Fixes, Address);
 
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -117,32 +105,7 @@ function writeReport() {
 
           //get the document for current user.
           currentUser.get().then((userDoc) => {
-            db.collection("reports")
-              .doc(id)
-              .update({
-                id: Math.floor(Math.random() * Math.pow(10, 8)).toString(),
-                userID: userID,
-                type: Type,
-                level: Level,
-                method: Method,
-                description: Description,
-                blocked: Blocked,
-                fixes: Fixes,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                location: [Latitude, Longitude],
-                address: Address,
-                likers: [],
-                dislikers: [],
-                reviews: [],
-              })
-              .then(() => {
-                console.log("1. Post document added!");
-                if (document.getElementById("mypic-input").files.length > 0) {
-                  uploadPic(id);
-                } else {
-                  window.location.href = "thanks.html";
-                }
-              });
+            addReport(Address, userID);
           });
         } else {
           console.log("No user is signed in");
@@ -151,6 +114,42 @@ function writeReport() {
       });
     }
   );
+}
+
+// write report to Firestore
+// Address: address of the report
+// userID: ID of the user reporting
+function addReport(Address, userID) {
+  let Type = document.getElementById("type").value;
+  let Level = document.getElementById("level").value;
+  let Method = document.getElementById("method").value;
+  let Description = document.getElementById("description").value;
+  let Blocked = document.querySelector('input[name="blocked"]:checked').value;
+  let Fixes = document.querySelector('input[name="fixes"]:checked').value;
+  let Latitude = map.getCenter().lat;
+  let Longitude = map.getCenter().lng;
+  db.collection("reports")
+  .doc(id)
+  .update({
+    userID: userID,
+    type: Type,
+    level: Level,
+    method: Method,
+    description: Description,
+    blocked: Blocked,
+    fixes: Fixes,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    location: [Latitude, Longitude],
+    address: Address,
+  })
+  .then(() => {
+    console.log("1. Post document added!");
+    if (document.getElementById("mypic-input").files.length > 0) {
+      uploadPic(id);
+    } else {
+      window.location.href = "thanks.html";
+    }
+  });
 }
 
 // uploads image to Firestore

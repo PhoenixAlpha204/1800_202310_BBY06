@@ -130,7 +130,6 @@ function showUserMarker() {
 function showReportsOnMap() {
   // collection of markers for grouping
   let markers = L.markerClusterGroup();
-  let markerTemp;
   db.collection("users")
     .doc(userID)
     .get()
@@ -149,12 +148,8 @@ function showReportsOnMap() {
               (reportDocData.method == "Cycling" && filterValues[2]) ||
               (reportDocData.method == "Walking" && filterValues[3])
             ) {
-              showOneReport(
-                reportDocData,
-                reportDocId,
-                filterValues,
-                markerTemp,
-                markers
+              markers.addLayer(
+                formatOneReport(reportDocData, reportDocId)
               );
             }
           });
@@ -163,18 +158,12 @@ function showReportsOnMap() {
     });
 }
 
-// format and place one report in the markers collection for display on map
+// format one report to be placed in markers collection
 // reportDocData: data of the report
 // reportDocId: Firestore's ID for the report
-// markerTemp: the marker object that will be placed
-// markers: the marker collection
-function showOneReport(
-  reportDocData,
-  reportDocId,
-  markerTemp,
-  markers
-) {
-  markerTemp = L.marker(
+// return: the marker object that will be placed
+function formatOneReport(reportDocData, reportDocId) {
+  return L.marker(
     [reportDocData.location[0], reportDocData.location[1]],
     {
       icon: icons[reportDocData.method][reportDocData.level],
@@ -196,7 +185,6 @@ function showOneReport(
     <button type="button" class="btn btn-sm btn-primary"
     onclick="updateReport('${reportDocId}')">Update Info</button>
     </div>`);
-  markers.addLayer(markerTemp);
 }
 
 function voteReport(reportId, didLike) {

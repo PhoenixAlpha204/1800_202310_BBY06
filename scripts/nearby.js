@@ -1,6 +1,7 @@
-const MAX_DST = 5; // kilometers
+const MAX_DST = 5; // (in kilometers) any report that is farther than this distance from the user will not display
 const nearbyReports = document.getElementById("nearbyReports");
 
+// initializes a user constant to be used by all other functions without needing to initialize one each time
 let user;
 firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
@@ -9,6 +10,11 @@ firebase.auth().onAuthStateChanged((userP) => {
 });
 var nearbyList = [];
 
+/**
+ * This function adds all the reports that are closest to the user's current location and are still within MAX_DST kilometers away to the nearbyList
+ * More specifically, the distance calculation uses the Pythagorean Formula and for each nearby report, an array
+ * containing the report's data object from Firestore and distance are added
+ */
 function setNearbyList() {
   navigator.geolocation.getCurrentPosition((userLocation) => {
     var reportCol = db.collection("reports");
@@ -42,6 +48,9 @@ function setNearbyList() {
 }
 setNearbyList();
 
+/**
+ * This function populates the nearby reports menu on page load using the nearbyLists array that was filled in by the setNearbyList() function.
+ */
 function showReportsInNearbyList() {
   if (nearbyList.length == 0) {
     return;

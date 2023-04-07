@@ -2,6 +2,7 @@ let user;
 let userID;
 
 // markers will only be shown when user is logged in
+// initializes a user constant to be used by all other functions without needing to initialize one each time
 firebase.auth().onAuthStateChanged((userP) => {
   if (userP) {
     user = userP;
@@ -19,6 +20,8 @@ let marker = L.Icon.extend({
     popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
   },
 });
+
+// all the icons used for map markers
 const icons = {
   Cycling: {
     Minor: new marker({ iconUrl: "./images/cycling1.png" }),
@@ -46,6 +49,9 @@ const icons = {
 let map;
 let geocoder;
 
+/**
+ * This function sets up the map and shows a search bar at the top right corner of the screen.
+ */
 function SetUpMap() {
   // map will be initialized centered on BCIT campus if geolocation not supported
   map = L.map("map").setView([49.251, -123], 15);
@@ -78,7 +84,9 @@ function SetUpMap() {
 }
 SetUpMap();
 
-// initializes the geocoder
+/**
+ * Initializes the geocoder.
+ */
 function setUpGeocoder() {
   geocoder = L.Control.Geocoder.nominatim();
   if (typeof URLSearchParams !== "undefined" && location.search) {
@@ -104,7 +112,9 @@ function setUpGeocoder() {
   }, 12000);
 }
 
-// Get the user's current location
+/**
+ * Get the user's current location.
+ */
 function locateUser() {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -117,7 +127,10 @@ function locateUser() {
   }
 }
 
-// show an icon at the user's location
+/**
+ * This function shows a marker to indicate the current location of this user using the app.
+ * Permission will also be requested. If the user declines location access then the marker will not show.
+ */
 function showUserMarker() {
   navigator.geolocation.getCurrentPosition((location) => {
     L.marker([location.coords.latitude, location.coords.longitude], {
@@ -126,7 +139,11 @@ function showUserMarker() {
   });
 }
 
-// get reports from database and display at correct coordinates
+/**
+ * This function loads all reports from firestore and displays them on the map in the form of a marker in their specificied positions, on page load.
+ * This function takes into account any filtered reports and removes and shows filtered and unfiltered reports accordingly.
+ * It also creates small pop-ups for each marker that appears on user click, and displays info about each report.
+ */
 function showReportsOnMap() {
   // collection of markers for grouping
   let markers = L.markerClusterGroup();
@@ -156,10 +173,13 @@ function showReportsOnMap() {
     });
 }
 
-// format one report to be placed in markers collection
-// reportDocData: data of the report
-// reportDocId: Firestore's ID for the report
-// return: the marker object that will be placed
+/**
+ * Format one report to be placed in markers collection.
+ * 
+ * @param {*} reportDocData data of the report
+ * @param {*} reportDocId Firestore's ID for the report
+ * @returns the marker object that will be placed
+ */
 function formatOneReport(reportDocData, reportDocId) {
   return L.marker(
     [reportDocData.location[0], reportDocData.location[1]],
@@ -185,6 +205,12 @@ function formatOneReport(reportDocData, reportDocId) {
     </div>`);
 }
 
+/**
+ * This function enables users to like reports using the like and dislike buttons of each marker pop-up.
+ * 
+ * @param {*} reportId report id of marker whose vote button was pressed by the user
+ * @param {*} didLike bool representing whether the user clicked the like or dislike button
+ */
 function voteReport(reportId, didLike) {
   let reportDoc = db.collection("reports").doc(reportId);
   reportDoc.get().then((reportDocGet) => {
@@ -231,6 +257,13 @@ const reviewsCloseBtn = document.getElementById("reviewsCloseBtn");
 
 let selectedReportId;
 
+/**
+ * This function enables the user to see reviews for a specific report by clicking the "See reviews" button of the report's marker pop-up.
+ * A menu will appear showing a section for submitting one's own review and another section that populates with all other submitted reviews.
+ * Each review shows the sender full name, how long ago it was posted, and the review body itself.
+ * 
+ * @param {*} reportId report id of marker whose "See reviews" button was pressed by the user
+ */
 function seeReviews(reportId) {
   let reportCol = db.collection("reports");
   reportCol.get().then((reportColData) => {
@@ -278,9 +311,17 @@ function seeReviews(reportId) {
   });
 }
 
+/**
+ * This code detects when the close button of the reviews menu is pressed and closes the menu. 
+ */
 reviewsCloseBtn.onclick = function () {
   reviewsMenu.hidden = true;
 };
+
+/**
+ * This code detects when the post/submit button of the reviews menu is pressed and submits a review.
+ * The code sends the user id, full name, review body, and time sent in milliseconds to Firestore.
+ */
 reviewsSubmitBtn.onclick = function () {
   let reportDoc = db.collection("reports").doc(selectedReportId);
   reportDoc.get().then((reportDocGet) => {
@@ -298,8 +339,11 @@ reviewsSubmitBtn.onclick = function () {
   });
 };
 
-// allow user to edit report
-// reportID: passes id of the report to be edited
+/**
+ * This function updates the report information.
+ * 
+ * @param {*} reportID report id of the report that will be updated
+ */
 function updateReport(reportID) {
   window.location.href = "update-report.html?id=" + reportID;
 }

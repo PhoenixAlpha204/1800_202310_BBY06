@@ -22,19 +22,28 @@ firebase.auth().onAuthStateChanged((user) => {
           let newcard = cardTemplate.content.cloneNode(true);
 
           //Assigns variables to sections on report cards
-          newcard.querySelector('.card-image').src = image;
+          newcard.querySelector(".card-image").src = image;
           newcard.querySelector(".card-title").innerHTML = type;
-          newcard.querySelector(".card-text").innerHTML = "Description: " + details;
-          newcard.querySelector(".update").addEventListener("click", function (e) {
-            window.location.href = window.location.href = "update-report.html?id=" + doc.id;
-          });
+          newcard.querySelector(".card-text").innerHTML =
+            "Description: " + details;
+          newcard
+            .querySelector(".update")
+            .addEventListener("click", function (e) {
+              window.location.href = window.location.href =
+                "update-report.html?id=" + doc.id;
+            });
 
           //Delete button removes card and redirectst to "Your Reports" page
-          newcard.querySelector(".delete").addEventListener("click", function (e) {
-            db.collection("reports").doc(doc.id).delete().then(() => {
-              window.location.href = "read-reports.html";
-            })
-          });
+          newcard
+            .querySelector(".delete")
+            .addEventListener("click", function (e) {
+              db.collection("reports")
+                .doc(doc.id)
+                .delete()
+                .then(() => {
+                  window.location.href = "read-reports.html";
+                });
+            });
 
           //Sets text to a card
           newcard.querySelector(".card-length").innerText =
@@ -53,16 +62,13 @@ firebase.auth().onAuthStateChanged((user) => {
             "Last updated: " +
             doc.data().timestamp.toDate().toDateString();
 
-
           //Adds text to a card
           document.getElementById("report-go-here").appendChild(newcard);
         });
       });
-
   } else {
     // No user is signed in.
     console.log("No user is signed in");
     window.location.href = "login.html";
   }
 });
-

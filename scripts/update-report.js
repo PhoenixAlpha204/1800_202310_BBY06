@@ -129,27 +129,27 @@ function addReport(Address, userID) {
   let Latitude = map.getCenter().lat;
   let Longitude = map.getCenter().lng;
   db.collection("reports")
-  .doc(id)
-  .update({
-    userID: userID,
-    type: Type,
-    level: Level,
-    method: Method,
-    description: Description,
-    blocked: Blocked,
-    fixes: Fixes,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    location: [Latitude, Longitude],
-    address: Address,
-  })
-  .then(() => {
-    console.log("1. Post document added!");
-    if (document.getElementById("mypic-input").files.length > 0) {
-      uploadPic(id);
-    } else {
-      window.location.href = "thanks.html";
-    }
-  });
+    .doc(id)
+    .update({
+      userID: userID,
+      type: Type,
+      level: Level,
+      method: Method,
+      description: Description,
+      blocked: Blocked,
+      fixes: Fixes,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      location: [Latitude, Longitude],
+      address: Address,
+    })
+    .then(() => {
+      console.log("1. Post document added!");
+      if (document.getElementById("mypic-input").files.length > 0) {
+        uploadPic(id);
+      } else {
+        window.location.href = "thanks.html";
+      }
+    });
 }
 
 // uploads image to Firestore

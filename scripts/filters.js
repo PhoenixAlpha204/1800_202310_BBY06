@@ -37,7 +37,7 @@ function changeFilters() {
         document.getElementById("driving").checked,
         document.getElementById("transit").checked,
         document.getElementById("cycling").checked,
-        document.getElementById("walking").checked
+        document.getElementById("walking").checked,
       ],
     })
     .then(() => {

@@ -148,9 +148,7 @@ function showReportsOnMap() {
               (reportDocData.method == "Cycling" && filterValues[2]) ||
               (reportDocData.method == "Walking" && filterValues[3])
             ) {
-              markers.addLayer(
-                formatOneReport(reportDocData, reportDocId)
-              );
+              markers.addLayer(formatOneReport(reportDocData, reportDocId));
             }
           });
           map.addLayer(markers);

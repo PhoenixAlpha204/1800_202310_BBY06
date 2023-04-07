@@ -1,16 +1,16 @@
 #errorPrompt {
-    padding: 8px;
-    position: fixed;
-    left: 50vw;
-    top: 20px;
-    transform: translate(-50%, 0);
-    width: 80vw;
-    max-width: 300px;
-    height: 125px;
-    z-index: 2000;
-    background-color: rgb(255, 162, 162);
-    font-size: 18px;
-    color: rgb(190, 0, 0);
-    border-radius: 8px;
-    box-shadow:0 0 15px 15px rgba(133, 0, 0, 0.167)
+  padding: 8px;
+  position: fixed;
+  left: 50vw;
+  top: 20px;
+  transform: translate(-50%, 0);
+  width: 80vw;
+  max-width: 300px;
+  height: 125px;
+  z-index: 2000;
+  background-color: rgb(255, 162, 162);
+  font-size: 18px;
+  color: rgb(190, 0, 0);
+  border-radius: 8px;
+  box-shadow: 0 0 15px 15px rgba(133, 0, 0, 0.167);
 }

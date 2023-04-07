@@ -80,10 +80,11 @@ It has the following subfolders and files:
 
 ├── styles                   # Folder for styles
     /global.css              # CSS for navbar, shared across pages
-    /index.css               # CSS for respective HTML pages
-    /nearby.css
-    /profile.css
-    /shared.css
+    /index.css               # CSS for index.html
+    /map.css                 # CSS for map.html
+    /nearby.css              # CSS for nearby.html
+    /profile.css             # CSS for profile.html
+    /shared.css  
 
 Firebase hosting files: 
 ├── .firebase

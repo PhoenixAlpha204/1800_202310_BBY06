@@ -1,26 +1,27 @@
 #nearbyReports {
-    position: relative;
-    left: 5%;
-    width: calc(100vw - 10%);
-    padding: 20px;
+  position: relative;
+  left: 5%;
+  width: calc(100vw - 10%);
+  padding: 20px;
 }
-#nearbyReports, #nearbyReports > * {
-    font-size: 22px;
+#nearbyReports,
+#nearbyReports > * {
+  font-size: 22px;
 }
 .nearbyReportsCell {
-    background-color: rgb(221, 219, 219);
-    border-radius: 12px;
-    padding: 12px;
+  background-color: rgb(221, 219, 219);
+  border-radius: 12px;
+  padding: 12px;
 }
 .nearbyReportsCell .span1 {
-    color: rgb(159, 0, 0);
-    font-size: 18px;
+  color: rgb(159, 0, 0);
+  font-size: 18px;
 }
 .nearbyReportsCell .span2 {
-    color: rgb(113, 0, 173);
-    font-size: 20px;
+  color: rgb(113, 0, 173);
+  font-size: 20px;
 }
 .nearbyReportsCell .span3 {
-    color: rgb(0, 59, 161);
-    font-size: 20px;
+  color: rgb(0, 59, 161);
+  font-size: 20px;
 }

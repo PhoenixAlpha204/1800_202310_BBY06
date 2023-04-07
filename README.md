@@ -75,7 +75,7 @@ It has the following subfolders and files:
     /read-reports.js         # JS for read-reports.html
     /report.js               # JS for report.html
     /update-report.js        # JS for update-reports.html
-    /weather.js              # JS for waether.html
+    /weather.js              # JS for weather.html
 
 ├── styles                   # Folder for styles
     /global.css              # CSS for navbar, shared across pages

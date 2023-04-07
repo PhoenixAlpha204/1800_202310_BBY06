@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <title>CryoCatcher</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -45,8 +44,9 @@
     />
 
     <!-- Link to styles of your own ------------------>
-    <link rel="stylesheet" href="./styles/shared.css">
-    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/shared.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico" />
 
     <!-- leaflet API for map display -->
     <link
@@ -70,6 +70,7 @@
   </head>
 
   <body class="back_image">
+    <!--Cancel button, returns to map-->
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
@@ -81,8 +82,9 @@
       <form>
         <div class="form-group">
           <label
-            >To select a location, please move the circle to the location
-            of the incident.</label>
+            >To select a location, please move the circle to the location of the
+            incident.</label
+          >
           <div style="position: relative; width: 50%">
             <div
               id="map"
@@ -121,6 +123,7 @@
             </select>
             <br />
 
+            <!--Description of incident-->
             <label>Description</label>
             <textarea
               class="form-control"
@@ -131,7 +134,7 @@
             ></textarea>
             <br />
 
-            <!--Blocked-->
+            <!--Blocked radio buttons-->
             <label
               >Blocked? <span style="display: inline-block; width: 26pt"></span
             ></label>
@@ -165,7 +168,7 @@
             </div>
             <br />
 
-            <!--Fixes underway-->
+            <!--Fixes radio buttons-->
             <label
               >Fixes underway?
               <span style="display: inline-block; width: 20pt"></span
@@ -200,6 +203,7 @@
             </div>
             <br />
 
+            <!--Image upload and preview-->
             <div class="container py-3">
               <input type="file" id="mypic-input" accept="image/*" />
               <img id="mypic-goes-here" width="100" height="100" />

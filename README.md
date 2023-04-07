@@ -20,14 +20,25 @@ Content of the project folder:
 
 ```
  Top level of project folder: 
-├── .gitignore               # Git ignore file
-├── index.html               # landing HTML file, this is what users see when you come to url
-└── README.md
+├── .gitignore                # Git ignore file
+├── filters.html              # filters HTML file, the page where user's select filters for incidents
+├── index.html                # landing HTML file, this is what users see
+├── login.html                # login HTML file, the log-in page
+├── map.html                  # map HTML file, the map page
+├── nearby.html               # nearby HTML file,. where nearby files are displayed
+├── profile.html              # profile HTML file, the profile page
+├── read-report.html          # read reports HTML file, the page where user's see their own reports
+├── report.html               # submit report HTML file, the page where user's submit incident reports 
+├── thanks.html               # thanks HTML file, the page where user's are thanked for their submission
+├── transit.html              # transit HTML file, the embedded Trankslink tweets page
+├── update-report.html        # update report HTML file, the page where user's update reports
+├── weather.html              # weather HTML file, the weather information page
+└── README.md                 # README file
 
 It has the following subfolders and files:
-├── html                     # Folder for html
 ├── images                   # Folder for images
-    /car_in_snow.jpg
+    /icons
+        /favicon.ico    
     /cycling.png
     /cycling1.png
     /cycling2.png
@@ -37,14 +48,13 @@ It has the following subfolders and files:
     /driving1.png
     /driving2.png
     /driving3.png
-    /favicon.ico
     /filter.png
     /index.png
     /like.png
     /nearby.png
     /plus.png
     /search.png
-    transit.png
+    /transit.png
     /transit1.png
     /transit2.png
     /transit3.png
@@ -54,18 +64,20 @@ It has the following subfolders and files:
     /walking1.png
     /walking2.png
     /walking3.png
+
 ├── scripts                  # Folder for scripts
     /authentication.js       # JS for respective HTML pages
-    /filters.js
+    /filters.js              # JF for filters.html
     /firebaseAPl_team06.js   # firebase API stuff, shared across pages
-    /map.js
-    /nearby.js
-    /profile.js
-    /read_reports.js
-    /report.js
-    /shared.js
-    /updateReport.js
-    /weather.js
+    /map.js                  # JS for map.html  
+    /nearby.js               # JS for nearby.html  
+    /profile.js              # JS for profile.html             
+    /read-reports.js         # JS for read-reports.html
+    /report.js               # JS for report.html
+    /shared.js 
+    /update-report.js        # JS for update-reports.html
+    /weather.js              # JS for waether.html
+
 ├── styles                   # Folder for styles
     /global.css              # CSS for navbar, shared across pages
     /index.css               # CSS for respective HTML pages
@@ -73,6 +85,15 @@ It has the following subfolders and files:
     /profile.css
     /shared.css
 
+Firebase hosting files: 
+├── .firebase
+	/hosting..cache
+├── .firebaserc
+├── 404.html
+├── firebase.json
+├── firestore.indexes.json
+├── firestore.rules
+├── storage.rules
 
 ```
 ## Limitations

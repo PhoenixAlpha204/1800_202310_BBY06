@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <!-- Bootstrap Library CSS CDN go here -->
     <link
@@ -30,15 +29,19 @@
 
     <!-- Link to styles of your own ------------------>
     <link rel="stylesheet" href="./styles/global.css">
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico" />
 
   </head>
   <body class="back_image">
+    <!--Cancel button, returns to map-->
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
     <header class="text-center">
       <h1 style="margin-bottom:2%;">Translink Updates</h1>
     </header>
+
+    <!--Twitter embedded timeline to Translink's Tweets-->
     <div class="container">
       <a class="twitter-timeline" href="https://twitter.com/TransLink?ref_src=twsrc%5Etfw">Tweets by TransLink</a>
     </div>
@@ -64,8 +67,6 @@
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
-
-    <!-- Link to scripts of your own -->
 
     <!--Displays Twitter feed for Translink-->
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

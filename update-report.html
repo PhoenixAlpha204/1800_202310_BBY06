@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <!-- Bootstrap Library CSS CDN go here -->
     <link
@@ -45,35 +44,38 @@
     />
 
     <!-- Link to styles of your own ------------------>
-    <link rel="stylesheet" href="./styles/shared.css">
-    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/shared.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico" />
 
     <!-- leaflet API for map display -->
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
-    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-    crossorigin=""
-  />
-  <script
-    src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"
-    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-    crossorigin=""
-  ></script>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
 
-  <!-- geocoder gets addresses from coordinates -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.css"
-  />
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- geocoder gets addresses from coordinates -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
 
   <body class="back_image">
+    <!--Cancel button, returns to map-->
     <a href="map.html">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
 
+    <!--Container for update report-->
     <div class="container" style="margin-bottom: 100px">
       <br />
       <h1>Update Report</h1>
@@ -81,8 +83,9 @@
       <form>
         <div class="form-group">
           <label
-            >To select a location, please move the circle to the location
-            of the incident.</label>
+            >To select a location, please move the circle to the location of the
+            incident.</label
+          >
           <div style="position: relative; width: 50%">
             <div
               id="map"
@@ -121,6 +124,7 @@
             </select>
             <br />
 
+            <!--Description of incident-->
             <label>Description</label>
             <textarea
               class="form-control"
@@ -131,7 +135,7 @@
             ></textarea>
             <br />
 
-            <!--Blocked-->
+            <!--Blocked radio buttons-->
             <label
               >Blocked? <span style="display: inline-block; width: 26pt"></span
             ></label>
@@ -167,7 +171,7 @@
             </div>
             <br />
 
-            <!--Fixes underway-->
+            <!--Fixes radio buttons-->
             <label
               >Fixes underway?
               <span style="display: inline-block; width: 20pt"></span
@@ -204,6 +208,7 @@
             </div>
             <br />
 
+            <!--Image upload and preview-->
             <div class="container py-3">
               <input type="file" id="mypic-input" accept="image/*" />
               <img id="mypic-goes-here" width="100" height="100" />
@@ -248,6 +253,6 @@
 
     <!-- Link to scripts of your own -->
     <script src="/scripts/firebaseAPI_team06.js"></script>
-    <script src="/scripts/updateReport.js"></script>
+    <script src="/scripts/update-report.js"></script>
   </body>
 </html>

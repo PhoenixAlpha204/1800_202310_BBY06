@@ -303,5 +303,5 @@ reviewsSubmitBtn.onclick = function () {
 // allow user to edit report
 // reportID: passes id of the report to be edited
 function updateReport(reportID) {
-  window.location.href = "updateReport.html?id=" + reportID;
+  window.location.href = "update-report.html?id=" + reportID;
 }

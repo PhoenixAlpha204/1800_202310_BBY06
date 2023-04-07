@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <!-- Bootstrap Library CSS CDN go here -->
     <link
@@ -43,28 +42,63 @@
     />
 
     <!-- Link to styles of your own ------------------>
-    <link rel="stylesheet" href="./styles/global.css">
-    
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico" />
   </head>
+
   <body class="back_image">
+    <!--Cancel button, returns to map-->
+    <a href="map.html">
+      <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
+
+    <div class="container">
+      <h1>Your Reports</h1>
+      <!-- Here is the container for cards  -->
+      <div class="container" style="margin-bottom: 100px">
+        <div id="report-go-here" class="row row-cols-auto"></div>
+      </div>
+    </div>
+
+    <!--Template for each report card-->
+    <template id="reportCardTemplate">
+      <div class="card py-2 mx-2" style="width: 18rem">
+        <img class="card-image card-img-top" src=" ..." alt="" />
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-length">Placeholder</p>
+          <br />
+          <p class="card-text">Placeholder text</p>
+          <button type="button" class="update btn btn-secondary navbar-custom">
+            Edit
+          </button>
+          <button
+            type="button"
+            class="delete btn btn-secondary navbar-custom card-href"
+          >
+            Delete Report
+          </button>
+        </div>
+      </div>
+    </template>
 
     <!--Navbar-->
     <nav class="navbar navbar-custom fixed-bottom">
-        <div class="container py-1 d-flex justify-content-between">
-          <a class="nav-link flex-fill text-center" href="map.html">
-            <i class="material-icons">map</i>
-          </a>
-          <a class="nav-link flex-fill text-center" href="transit.html">
-            <i class="material-icons">directions_bus</i>
-          </a>
-          <a class="nav-link flex-fill text-center" href="weather.html">
-            <i class="material-icons">cloud</i>
-          </a>
-          <a class="nav-link flex-fill text-center" href="profile.html">
-            <i class="material-icons">account_circle</i>
-          </a>
-        </div>
-      </nav>
+      <div class="container py-1 d-flex justify-content-between">
+        <a class="nav-link flex-fill text-center" href="map.html">
+          <i class="material-icons">map</i>
+        </a>
+        <a class="nav-link flex-fill text-center" href="transit.html">
+          <i class="material-icons">directions_bus</i>
+        </a>
+        <a class="nav-link flex-fill text-center" href="weather.html">
+          <i class="material-icons">cloud</i>
+        </a>
+        <a class="nav-link flex-fill text-center" href="profile.html">
+          <i class="material-icons">account_circle</i>
+        </a>
+      </div>
+    </nav>
 
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
@@ -72,8 +106,7 @@
 
     <!-- Link to scripts of your own -->
     <script src="./scripts/firebaseAPI_team06.js"></script>
-    <script src="./scripts/authentication.js"></script>
-    <script src="./scripts/profile.js"></script>
-
+    <script src="./scripts/read-reports.js"></script>
+    <script src="./scripts/global.js"></script>
   </body>
 </html>

@@ -74,7 +74,6 @@ It has the following subfolders and files:
     /profile.js              # JS for profile.html             
     /read-reports.js         # JS for read-reports.html
     /report.js               # JS for report.html
-    /shared.js 
     /update-report.js        # JS for update-reports.html
     /weather.js              # JS for waether.html
 
@@ -84,7 +83,6 @@ It has the following subfolders and files:
     /map.css                 # CSS for map.html
     /nearby.css              # CSS for nearby.html
     /profile.css             # CSS for profile.html
-    /shared.css  
 
 Firebase hosting files: 
 ├── .firebase
